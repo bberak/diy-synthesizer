@@ -9,7 +9,7 @@ const leftKnob = knob({
 	onButtonDown: synthesizer.randomEffect,
 	//onButtonUp: console.log,
 	onClockwiseTurn: synthesizer.nextEffect,
-	onCounterClockwiseTUrn: synthesizer.previousEffect,
+	onCounterClockwiseTurn: synthesizer.previousEffect,
 });
 
 const middleKnob = knob({
@@ -19,7 +19,7 @@ const middleKnob = knob({
 	onButtonDown: () => console.log("switch to mixer or octave selection"),
 	//onButtonUp: console.log,
 	onClockwiseTurn: synthesizer.increaseOctave,
-	onCounterClockwiseTUrn: synthesizer.decreaseOctave,
+	onCounterClockwiseTurn: synthesizer.decreaseOctave,
 });
 
 const rightKnob = knob({
@@ -29,7 +29,7 @@ const rightKnob = knob({
 	onButtonDown: () => console.log("switch to adsr or volume selection"),
 	//onButtonUp: console.log,
 	onClockwiseTurn: synthesizer.increaseVolume,
-	onCounterClockwiseTUrn: synthesizer.decreaseVolume,
+	onCounterClockwiseTurn: synthesizer.decreaseVolume,
 });
 
 const aButton = button({ pin: 21, onButtonDown: synthesizer.aDown, onButtonUp: synthesizer.aUp });
