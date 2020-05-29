@@ -17,10 +17,10 @@ let keys = [nothing, nothing, nothing, nothing, nothing, nothing, nothing]
 // ).play();
 
 const filter = lowPass("lr")(440);
-const ceiling = limit(-0.8, 0.8);
+const cap = limit(-0.8, 0.8);
 
 synthesizer(time => {
-	return limit(filter(keys[0](time) + keys[1](time) + keys[2](time) + keys[3](time) + keys[4](time) + keys[5](time) + keys[6](time)));
+	return cap(filter(keys[0](time) + keys[1](time) + keys[2](time) + keys[3](time) + keys[4](time) + keys[5](time) + keys[6](time)));
 }).play();
 
 const nextEffect = () => {
