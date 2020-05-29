@@ -6,7 +6,8 @@
   "scripts": {
     "start": "sudo node src/index.js",
     "shutdown": "sudo shutdown -h now",
-    "reboot": "sudo shutdown -r now"
+    "reboot": "sudo shutdown -r now",
+    "kill": "sudo killall node"
   },
   "author": "bberak",
   "license": "ISC",
