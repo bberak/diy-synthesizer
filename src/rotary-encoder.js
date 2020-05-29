@@ -4,9 +4,9 @@ const createRotaryEncoder = ({
 	buttonPin,
 	channelAPin,
 	channelBPin,
-	onPushButton = () => {},
-	onClockwise = () => {},
-	onCounterClockwise = () => {},
+	onPress = () => {},
+	onClockwiseTurn = () => {},
+	onCounterClockwiseTurn = () => {},
 	buttonGlitchFilter = 10000,
 	channelAGlitchFilter = 1000,
 	channelBGlitchFilter = 1000
@@ -24,7 +24,7 @@ const createRotaryEncoder = ({
 			const level = switchButton.digitalRead();
 
 			if (level === 0)
-				onPushButton();
+				onPress();
 		};
 
 		switchButton.on("alert", _onPushButton);
@@ -53,7 +53,7 @@ const createRotaryEncoder = ({
 			const a = channelA.digitalRead();
 			const b = channelB.digitalRead();
 
-			if (a === 1 && b === 0) onClockwise();
+			if (a === 1 && b === 0) onClockwiseTurn();
 		};
 
 		channelA.on("alert", _onClockwise);
@@ -62,20 +62,11 @@ const createRotaryEncoder = ({
 			const a = channelA.digitalRead();
 			const b = channelB.digitalRead();
 
-			if (a === 0 && b === 1) onCounterClockwise();
+			if (a === 0 && b === 1) onCounterClockwiseTurn();
 		};
 
 		channelB.on("alert", _onCounterClockwise);
 	}
 };
 
-let count = 0;
-
-const encoder = createRotaryEncoder({
-	channelAPin: 17,
-	channelBPin: 18,
-	onClockwise: () => console.log(++count),
-	onCounterClockwise: () => console.log(--count),
-	//buttonPin: 17,
-	//onPushButton: () => console.log(++count)
-});
+module.exports = createRotaryEncoder;

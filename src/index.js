@@ -3,6 +3,19 @@ const { a, b, c, d, e, f, g } = require("node-sfx/waves");
 const { lowPass } = require("node-sfx/filters");
 const { listenForExit } = require("node-sfx/utils");
 
+const button = require("pup-button");
+const encoder = require("rotary-encoder");
+
+const button1 = button({ pin: 99, onPress: console.log });
+const encoder1 = encoder({
+	buttonPin: 100,
+	channelAPin: 101,
+	channelBPin: 102,
+	onPress: console.log,
+	onClockwiseTurn: console.log,
+	onCounterClockwiseTUrn: console.log,
+});
+
 synthesizer(
 	compose(
 		loop(
