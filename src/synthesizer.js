@@ -1,7 +1,7 @@
 const { synthesizer, loop, compose, map, scale, sum, split } = require("node-sfx/core");
 const { a, b, c, d, e, f, g } = require("node-sfx/waves");
 const { lowPass } = require("node-sfx/filters");
-const { utils } = require("log");
+const { log } = require("node-sfx/utils");
 const nothing = () => 0;
 
 let octave = 4;
