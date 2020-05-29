@@ -4,7 +4,8 @@ const createRotaryEncoder = ({
 	buttonPin,
 	channelAPin,
 	channelBPin,
-	onPress = () => {},
+	onButtonDown = () => {},
+	onButtonUp = () => {},
 	onClockwiseTurn = () => {},
 	onCounterClockwiseTurn = () => {},
 	buttonGlitchFilter = 10000,
@@ -24,7 +25,9 @@ const createRotaryEncoder = ({
 			const level = switchButton.digitalRead();
 
 			if (level === 0)
-				onPress();
+				onButtonDown();
+			else
+				onButtonUp();
 		};
 
 		switchButton.on("alert", _onPushButton);
