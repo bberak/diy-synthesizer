@@ -1,23 +1,18 @@
-const { synthesizer, loop, compose, map, scale } = require("node-sfx/core");
+const { synthesizer, loop, compose, map, scale, passThrough, sum, split } = require("node-sfx/core");
 const { a, b, c, d, e, f, g } = require("node-sfx/waves");
 const { lowPass } = require("node-sfx/filters");
-//const { listenForExit } = require("node-sfx/utils");
 
-// synthesizer(
-// 	compose(
-// 		loop(
-// 			[
-// 				[c(4), e(4), g(4), b(4), c(5), b(4), g(4), e(4)],
-// 				[c(2), e(2), g(2), b(2), c(3), b(2), g(2), e(2)]
-// 			],
-// 			275 // beats per minute
-// 		),
-// 		map(scale(0.5), scale(1)),
-// 		map(lowPass("l")(440), lowPass("r")(440))
-// 	)
-// ).play();
+let octave = 4;
+let keys = [passThrough, passThrough, passThrough, passThrough, passThrough, passThrough, passThrough]
 
-//listenForExit();
+synthesizer(
+	compose(
+		map(keys),
+		sum(),
+		lowPass("lr")(440),
+		split(2)
+	)
+).play();
 
 const nextEffect = () => {
 	console.log("next effect");
@@ -33,10 +28,14 @@ const randomEffect = () => {
 
 const increaseOctave = () => {
 	console.log("increase octave");
+
+	octave++;
 };
 
 const decreaseOctave = () => {
 	console.log("decrease octave");
+
+	octave--;
 };
 
 const increaseMix = () => {
@@ -65,58 +64,86 @@ const previousAdsr = () => {
 
 const aDown = () => {
 	console.log("a down");
+
+	keys[0] = a(octave);
 }
 
 const aUp = () => {
 	console.log("a up");
+
+	keys[0] = passThrough;
 }
 
 const bDown = () => {
 	console.log("b down");
+
+	keys[1] = b(octave);
 }
 
 const bUp = () => {
 	console.log("b up");
+
+	keys[1] = passThrough;
 }
 
 const cDown = () => {
 	console.log("c down");
+
+	keys[2] = c(octave)
 }
 
 const cUp = () => {
 	console.log("c up");
+
+	keys[2] = passThrough;
 }
 
 const dDown = () => {
 	console.log("d down");
+
+	keys[3] = d(octave);
 }
 
 const dUp = () => {
 	console.log("d up");
+
+	keys[3] = passThrough;
 }
 
 const eDown = () => {
 	console.log("e down");
+
+	keys[4] = e(octave);
 }
 
 const eUp = () => {
 	console.log("e up");
+
+	keys[4] = passThrough;
 }
 
 const fDown = () => {
 	console.log("f down");
+
+	keys[5] = f(octave);
 }
 
 const fUp = () => {
 	console.log("f up");
+
+	keys[5] = passThrough;
 }
 
 const gDown = () => {
 	console.log("g down");
+
+	keys[6] = g(octave);
 }
 
 const gUp = () => {
 	console.log("g up");
+
+	keys[6] = passThrough;
 }
 
 module.exports = {
