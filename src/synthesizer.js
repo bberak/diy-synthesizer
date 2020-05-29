@@ -1,12 +1,14 @@
-const { synthesizer, loop, compose, map, scale, passThrough, sum, split } = require("node-sfx/core");
+const { synthesizer, loop, compose, map, scale, sum, split } = require("node-sfx/core");
 const { a, b, c, d, e, f, g } = require("node-sfx/waves");
 const { lowPass } = require("node-sfx/filters");
+const nothing = () => 0;
 
 let octave = 4;
-let keys = [passThrough, passThrough, passThrough, passThrough, passThrough, passThrough, passThrough]
+let keys = [nothing, nothing, nothing, nothing, nothing, nothing, nothing]
 
 synthesizer(
 	compose(
+		split(7),
 		map(keys),
 		sum(),
 		lowPass("lr")(440),
@@ -71,7 +73,7 @@ const aDown = () => {
 const aUp = () => {
 	console.log("a up");
 
-	keys[0] = passThrough;
+	keys[0] = nothing;
 }
 
 const bDown = () => {
@@ -83,7 +85,7 @@ const bDown = () => {
 const bUp = () => {
 	console.log("b up");
 
-	keys[1] = passThrough;
+	keys[1] = nothing;
 }
 
 const cDown = () => {
@@ -95,7 +97,7 @@ const cDown = () => {
 const cUp = () => {
 	console.log("c up");
 
-	keys[2] = passThrough;
+	keys[2] = nothing;
 }
 
 const dDown = () => {
@@ -107,7 +109,7 @@ const dDown = () => {
 const dUp = () => {
 	console.log("d up");
 
-	keys[3] = passThrough;
+	keys[3] = nothing;
 }
 
 const eDown = () => {
@@ -119,7 +121,7 @@ const eDown = () => {
 const eUp = () => {
 	console.log("e up");
 
-	keys[4] = passThrough;
+	keys[4] = nothing;
 }
 
 const fDown = () => {
@@ -131,7 +133,7 @@ const fDown = () => {
 const fUp = () => {
 	console.log("f up");
 
-	keys[5] = passThrough;
+	keys[5] = nothing;
 }
 
 const gDown = () => {
@@ -143,7 +145,7 @@ const gDown = () => {
 const gUp = () => {
 	console.log("g up");
 
-	keys[6] = passThrough;
+	keys[6] = nothing;
 }
 
 module.exports = {
