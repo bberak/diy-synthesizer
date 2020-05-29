@@ -9,9 +9,9 @@ const createPupButton = ({ pin, onButtonDown = () => {}, onButtonUp = () => {} }
 
 	button.on("interrupt", (level) => {
 		if (level)
-			onButtonDown();
-		else
 			onButtonUp();
+		else
+			onButtonDown();
 	});
 };
 
