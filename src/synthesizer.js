@@ -7,14 +7,18 @@ const nothing = () => 0;
 let octave = 4;
 let keys = [nothing, nothing, nothing, nothing, nothing, nothing, nothing]
 
-synthesizer(
-	compose(
-		split(7),
-		map(keys),
-		sum,
-		//lowPass("lr")(440)
-	)
-).play();
+// synthesizer(
+// 	compose(
+// 		split(7),
+// 		map(keys),
+// 		sum,
+// 		//lowPass("lr")(440)
+// 	)
+// ).play();
+
+synthesizer(time => {
+	return keys[0](time) + keys[1](time) + keys[2](time) + keys[3](time) + keys[4](time) + keys[5](time) + keys[6](time)
+}).play();
 
 const nextEffect = () => {
 	console.log("next effect");
