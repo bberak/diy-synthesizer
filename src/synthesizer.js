@@ -2,7 +2,7 @@ const { synthesizer, loop, compose, map, scale, sum, split, limit } = require("n
 const { a, b, c, d, e, f, g } = require("node-sfx/waves");
 const { lowPass } = require("node-sfx/filters");
 const { log } = require("node-sfx/utils");
-const nothing = () => 0;
+const nothing = () => 1;
 
 let octave = 4;
 let keys = [nothing, nothing, nothing, nothing, nothing, nothing, nothing]
