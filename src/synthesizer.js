@@ -1,7 +1,7 @@
 const { synthesizer, loop, compose, map, scale } = require("node-sfx/core");
 const { a, b, c, d, e, f, g } = require("node-sfx/waves");
 const { lowPass } = require("node-sfx/filters");
-const { listenForExit } = require("node-sfx/utils");
+//const { listenForExit } = require("node-sfx/utils");
 
 // synthesizer(
 // 	compose(
@@ -17,7 +17,7 @@ const { listenForExit } = require("node-sfx/utils");
 // 	)
 // ).play();
 
-listenForExit();
+//listenForExit();
 
 const nextEffect = () => {
 	console.log("next effect");
