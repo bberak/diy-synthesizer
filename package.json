@@ -12,7 +12,7 @@
   "author": "bberak",
   "license": "ISC",
   "dependencies": {
-    "node-sfx": "^0.2.1",
+    "node-sfx": "^0.3.0",
     "pigpio": "^2.0.1"
   }
 }
