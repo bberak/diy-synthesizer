@@ -1,0 +1,17 @@
+{
+  "name": "diy-synthesizer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "sudo node src/index.js",
+    "shutdown": "sudo shutdown -h now",
+    "reboot": "sudo shutdown -r now"
+  },
+  "author": "bberak",
+  "license": "ISC",
+  "dependencies": {
+    "node-sfx": "^0.2.1",
+    "pigpio": "^2.0.1"
+  }
+}
