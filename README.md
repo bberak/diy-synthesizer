@@ -1,4 +1,4 @@
-# DIY Synthesizer
+# DIY Synthesizer 🎹🎵
 
 A simple NodeJS synthesizer for Raspberry PI
 
