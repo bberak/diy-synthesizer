@@ -14,3 +14,5 @@ const createPupButton = ({ pin, onButtonDown = () => {}, onButtonUp = () => {} }
 			onButtonUp();
 	});
 };
+
+module.exports = createPupButton;
