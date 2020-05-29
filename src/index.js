@@ -4,8 +4,8 @@ const knob = require("./rotary-encoder");
 
 const leftKnob = knob({
 	buttonPin: 12,
-	channelAPin: 10,
-	channelBPin: 11,
+	channelAPin: 11,
+	channelBPin: 10,
 	onButtonDown: synthesizer.randomEffect,
 	//onButtonUp: console.log,
 	onClockwiseTurn: synthesizer.nextEffect,
@@ -14,9 +14,9 @@ const leftKnob = knob({
 
 const middleKnob = knob({
 	buttonPin: 8,
-	channelAPin: 2,
-	channelBPin: 4,
-	//onButtonDown: console.log,
+	channelAPin: 4,
+	channelBPin: 2,
+	onButtonDown: () => console.log("switch to mixer or octave selection"),
 	//onButtonUp: console.log,
 	onClockwiseTurn: synthesizer.increaseOctave,
 	onCounterClockwiseTUrn: synthesizer.decreaseOctave,
@@ -24,9 +24,9 @@ const middleKnob = knob({
 
 const rightKnob = knob({
 	buttonPin: 23,
-	channelAPin: 27,
-	channelBPin: 24,
-	//onButtonDown: console.log,
+	channelAPin: 24,
+	channelBPin: 27,
+	onButtonDown: () => console.log("switch to adsr or volume selection"),
 	//onButtonUp: console.log,
 	onClockwiseTurn: synthesizer.increaseVolume,
 	onCounterClockwiseTUrn: synthesizer.decreaseVolume,

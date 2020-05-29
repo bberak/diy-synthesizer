@@ -17,7 +17,7 @@ const { listenForExit } = require("node-sfx/utils");
 // 	)
 // ).play();
 
-// listenForExit();
+listenForExit();
 
 const nextEffect = () => {
 	console.log("next effect");
