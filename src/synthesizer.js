@@ -20,6 +20,7 @@ const filter = lowPass("lp")(440);
 const cap = limit(-0.99, 0.99);
 
 synthesizer((time) => {
+	let n = keys.filter(x => x).length || 1;
  	let base = (
 		(keys[0] ? a(octave)(time) : 0) +
 		(keys[1] ? b(octave)(time) : 0) +
@@ -28,7 +29,7 @@ synthesizer((time) => {
 		(keys[4] ? e(octave)(time) : 0) +
 		(keys[5] ? f(octave)(time) : 0) +
 		(keys[6] ? g(octave)(time) : 0)
-	);
+	) / n;
 
  	let result = base + (saw(2)(time) + pulse(0.1)(time)) * mix;
 
@@ -69,10 +70,14 @@ const decreaseOctave = () => {
 
 const increaseMix = () => {
 	console.log("increase mix");
+
+	mix += 0.02;
 };
 
 const decreaseMix = () => {
 	console.log("decrease mix");
+
+	mix += 0.02;
 };
 
 const increaseVolume = () => {
