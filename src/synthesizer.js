@@ -19,14 +19,15 @@ const filter = lowPass("lr")(440);
 const cap = limit(-0.9, 0.9);
 
 synthesizer((time) => {
+	let n = keys.filter(x => x).length || 1;
  	let result = cap(
-		(keys[0] ? a(octave)(time) : 0) +
-		(keys[1] ? b(octave)(time) : 0) +
-		(keys[2] ? c(octave)(time) : 0) +
-		(keys[3] ? d(octave)(time) : 0) +
-		(keys[4] ? e(octave)(time) : 0) +
-		(keys[5] ? f(octave)(time) : 0) +
-		(keys[6] ? g(octave)(time) : 0)
+		(keys[0] ? a(octave)(time) : 0) / n +
+		(keys[1] ? b(octave)(time) : 0) / n +
+		(keys[2] ? c(octave)(time) : 0) / n +
+		(keys[3] ? d(octave)(time) : 0) / n +
+		(keys[4] ? e(octave)(time) : 0) / n +
+		(keys[5] ? f(octave)(time) : 0) / n +
+		(keys[6] ? g(octave)(time) : 0) / n
 	);
 
 	if (result > 1)
