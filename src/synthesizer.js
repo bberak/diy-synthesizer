@@ -19,15 +19,15 @@ const filter = lowPass("lp")(440);
 const cap = limit(-0.9, 0.9);
 
 synthesizer((time) => {
- 	let result = cap(filter(
-		(keys[0] ? a(octave)(time) : 0) +
-		(keys[1] ? b(octave)(time) : 0) +
-		(keys[2] ? c(octave)(time) : 0) +
-		(keys[3] ? d(octave)(time) : 0) +
-		(keys[4] ? e(octave)(time) : 0) +
-		(keys[5] ? f(octave)(time) : 0) +
+ 	return [
+		(keys[0] ? a(octave)(time) : 0),
+		(keys[1] ? b(octave)(time) : 0),
+		(keys[2] ? c(octave)(time) : 0),
+		(keys[3] ? d(octave)(time) : 0),
+		(keys[4] ? e(octave)(time) : 0),
+		(keys[5] ? f(octave)(time) : 0),
 		(keys[6] ? g(octave)(time) : 0)
-	));
+	];
 
 	if (result > 1)
 		console.log(result)
@@ -37,7 +37,7 @@ synthesizer((time) => {
 
 	return result;
 }).play({
-	channels: 2,
+	channels: 7,
 	sampleRate: 22050,
 	byteOrder: "LE",
 	bitDepth: 16,
