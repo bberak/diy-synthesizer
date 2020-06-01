@@ -7,6 +7,7 @@ let octave = 4;
 let mix = 0.5
 let keys = [false, false, false, false, false, false, false]
 let effects = [
+	(time) => 1,
 	(time) => (saw(2)(time) + pulse(0.1)(time)),
 	(time) => (saw(2)(time) + pulse(0.2)(time) + square(1)(time)),
 	(time) => (saw(2)(time) + pulse(0.2)(time) + square(5)(time)),
