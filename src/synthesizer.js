@@ -12,7 +12,7 @@ const envelope = () => {
 	let start = null;
 	let release = null;
 
-	return (amplitude, onOrOff, time, adsrConfig = {}) => {
+	return (amplitude, onOrOff, time, { attackDuration = 0.2, decayDuration = 0.5, releaseDuration = 0.5, peak = 0.85, sustain = 0.1 } = {}) => {
 		if (!keyDown && onOrOff) {
 			keyDown = true;
 			start = time;
@@ -24,12 +24,6 @@ const envelope = () => {
 			start = null;
 			release = time;
 		}
-
-		const attackDuration = adsrConfig.attackDuration || 0.2;
-		const decayDuration = adsrConfig.decayDuration || 0.5;
-		const releaseDuration = adsrConfig.releaseDuration || 0.5;
-		const peak = adsrConfig.peak || 0.85;
-		const sustain = 0.1;
 		
 		if (start) {
 			const duration = time - start;
@@ -79,7 +73,7 @@ let cap = limit(-0.99, 0.99);
 let volume = 0.75
 
 synthesizer((time) => {
- 	let base = (
+ 	const base = (
 		envelopes[0](a(octave)(time), keys[0], time) +
 		envelopes[1](b(octave)(time), keys[1], time) +
 		envelopes[2](c(octave)(time), keys[2], time) +
@@ -89,7 +83,7 @@ synthesizer((time) => {
 		envelopes[6](g(octave)(time), keys[6], time)
 	);
 
- 	let result = base ? base + effect(time) * mix : 0;
+ 	const result = base ? base + effect(time) * mix : 0;
 
 	return cap(result) * volume;
 }).play({
