@@ -3,9 +3,62 @@ const { a, b, c, d, e, f, g, saw, pulse, triangle, square, perlin, sine } = requ
 const { lowPass } = require("node-sfx/filters");
 const { log } = require("node-sfx/utils");
 
+const envelope = () => {
+	let keyDown = false;
+	let start = null;
+	let release = null;
+
+	return (amplitude, onOrOff, time, adsrConfig = {}) => {
+		if (!keyDown && onOrOff) {
+			keyDown = true;
+			start = time;
+			release = null;
+		}
+
+		if (keyDown && !onOrOff) {
+			keyDown = false;
+			start = null;
+			release = time;
+		}
+
+		const attackDuration = adsrConfig.attackDuration || 0.1;
+		const decayDuration = adsrConfig.decayDuration || 0.1;
+		const releaseDuration = adsrConfig.releaseDuration || 0.1;
+		const peak = adsrConfig.peak || 0.75;
+		const sustain = 0.5;
+		
+		if (start) {
+			const duration = time - start;
+
+			if (duration < attackDuration) {
+				// attacking
+				return remap(duration, 0, attackDuration, 0, peak) * amplitude;
+			} else if (duration < (attackDuration + decayDuration)) {
+				// decaying
+				return remap(duration - attackDuration, 0, decayDuration, peak, sustain) * amplitude;
+			} else {
+				// sustaining
+				return sustain * amplitude;
+			}
+		}
+
+		if (release) {
+			const duration = time - release;
+
+			if (duration < releaseDuration) {
+				// releasing
+				return remap(duration, 0, releaseDuration, sustain, 0) * amplitude;
+			}
+		}
+
+		return 0;
+	}
+}
+
 let octave = 4;
 let mix = 0.5
 let keys = [false, false, false, false, false, false, false]
+let envelopes = [envelope(), envelope(), envelope(), envelope(), envelope(), envelope(), envelope()]
 let effects = [
 	(time) => 1,
 	(time) => (saw(2)(time) + pulse(0.1)(time)),
@@ -19,18 +72,17 @@ let effects = [
 ];
 let effect = effects[0];
 let cap = limit(-0.99, 0.99);
-let gain = 0.3;
 let volume = 0.75
 
 synthesizer((time) => {
  	let base = (
-		(keys[0] ? a(octave)(time) * gain : 0) +
-		(keys[1] ? b(octave)(time) * gain : 0) +
-		(keys[2] ? c(octave)(time) * gain : 0) +
-		(keys[3] ? d(octave)(time) * gain : 0) +
-		(keys[4] ? e(octave)(time) * gain : 0) +
-		(keys[5] ? f(octave)(time) * gain : 0) +
-		(keys[6] ? g(octave)(time) * gain : 0)
+		envelopes[0](a(octave)(time), keys[0], time) +
+		envelopes[1](b(octave)(time), keys[1], time) +
+		envelopes[2](c(octave)(time), keys[2], time) +
+		envelopes[3](d(octave)(time), keys[3], time) +
+		envelopes[4](e(octave)(time), keys[4], time) +
+		envelopes[5](f(octave)(time), keys[5], time) +
+		envelopes[6](g(octave)(time), keys[6], time) +
 	);
 
  	let result = base + effect(time) * mix;
