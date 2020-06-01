@@ -3,6 +3,10 @@ const { a, b, c, d, e, f, g, saw, pulse, triangle, square, perlin, sine } = requ
 const { lowPass } = require("node-sfx/filters");
 const { log } = require("node-sfx/utils");
 
+const remap = (n, start1, stop1, start2, stop2) => {
+  return (n - start1) / (stop1 - start1) * (stop2 - start2) + start2;
+}
+
 const envelope = () => {
 	let keyDown = false;
 	let start = null;
