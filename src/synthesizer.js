@@ -32,6 +32,9 @@ synthesizer((time) => {
 	if (result > 1)
 		console.log(result)
 
+	if (result < 1)
+		console.log(result)
+
 	return result;
 }).play({
 	channels: 2,
