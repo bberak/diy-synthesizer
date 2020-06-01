@@ -16,10 +16,10 @@ let keys = [false, false, false, false, false, false, false]
 // ).play();
 
 const filter = lowPass("lr")(440);
-const cap = limit(-0.8, 0.8);
+const cap = limit(-0.9, 0.9);
 
 synthesizer((time) => {
- 	let result = (
+ 	let result = cap(
 		(keys[0] ? a(octave)(time) : 0) +
 		(keys[1] ? b(octave)(time) : 0) +
 		(keys[2] ? c(octave)(time) : 0) +
