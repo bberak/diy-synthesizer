@@ -19,7 +19,6 @@ const filter = lowPass("lr")(440);
 const cap = limit(-0.8, 0.8);
 
 synthesizer((time) => {
-	console.log(Date.now());
 	return 
 		keys[0] ? a(octave)(time) : 0 +
 		keys[1] ? b(octave)(time) : 0 +
@@ -30,7 +29,7 @@ synthesizer((time) => {
 		keys[6] ? g(octave)(time) : 0
 }).play({
 	channels: 2,
-	sampleRate: 2,
+	sampleRate: 22050,
 	byteOrder: "LE",
 	bitDepth: 16,
 	signed: true,
