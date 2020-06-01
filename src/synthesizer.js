@@ -17,22 +17,24 @@ let effects = [
 	(time) => perlin(1)(time),
 ];
 let effect = effects[0];
-const cap = limit(-0.99, 0.99);
+let cap = limit(-0.99, 0.99);
+let gain = 0.3;
+let volume = 0.75
 
 synthesizer((time) => {
  	let base = (
-		(keys[0] ? a(octave)(time) : 0) +
-		(keys[1] ? b(octave)(time) : 0) +
-		(keys[2] ? c(octave)(time) : 0) +
-		(keys[3] ? d(octave)(time) : 0) +
-		(keys[4] ? e(octave)(time) : 0) +
-		(keys[5] ? f(octave)(time) : 0) +
-		(keys[6] ? g(octave)(time) : 0)
+		(keys[0] ? a(octave)(time) * gain : 0) +
+		(keys[1] ? b(octave)(time) * gain : 0) +
+		(keys[2] ? c(octave)(time) * gain : 0) +
+		(keys[3] ? d(octave)(time) * gain : 0) +
+		(keys[4] ? e(octave)(time) * gain : 0) +
+		(keys[5] ? f(octave)(time) * gain : 0) +
+		(keys[6] ? g(octave)(time) * gain : 0)
 	);
 
  	let result = base + effect(time) * mix;
 
-	return cap(result);
+	return cap(result) * volume;
 }).play({
 	channels: 2,
 	sampleRate: 22050,
@@ -85,10 +87,14 @@ const decreaseMix = () => {
 
 const increaseVolume = () => {
 	console.log("increase volume");
+
+	volume = limit(0, 1)(volume + 0.02);
 };
 
 const decreaseVolume = () => {
 	console.log("decrease volume");
+
+	volume = limit(0, 1)(volume - 0.02);
 };
 
 const nextAdsr = () => {
