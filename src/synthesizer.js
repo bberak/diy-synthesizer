@@ -19,14 +19,15 @@ const filter = lowPass("lr")(440);
 const cap = limit(-0.8, 0.8);
 
 synthesizer((time) => {
-	return 
-		keys[0] ? a(octave)(time) : 0 +
-		keys[1] ? b(octave)(time) : 0 +
-		keys[2] ? c(octave)(time) : 0 +
-		keys[3] ? d(octave)(time) : 0 +
-		keys[4] ? e(octave)(time) : 0 +
-		keys[5] ? f(octave)(time) : 0 +
-		keys[6] ? g(octave)(time) : 0
+ 	return (
+		(keys[0] ? a(octave)(time) : 0) +
+		(keys[1] ? b(octave)(time) : 0) +
+		(keys[2] ? c(octave)(time) : 0) +
+		(keys[3] ? d(octave)(time) : 0) +
+		(keys[4] ? e(octave)(time) : 0) +
+		(keys[5] ? f(octave)(time) : 0) +
+		(keys[6] ? g(octave)(time) : 0)
+	);
 }).play({
 	channels: 2,
 	sampleRate: 22050,
@@ -52,13 +53,13 @@ const randomEffect = () => {
 const increaseOctave = () => {
 	console.log("increase octave");
 
-	octave++;
+	octave += 0.2;
 };
 
 const decreaseOctave = () => {
 	console.log("decrease octave");
 
-	octave--;
+	octave -= 0.2;
 };
 
 const increaseMix = () => {
