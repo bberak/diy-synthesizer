@@ -1,9 +1,10 @@
 const { synthesizer, loop, compose, map, scale, sum, split, limit } = require("node-sfx/core");
-const { a, b, c, d, e, f, g } = require("node-sfx/waves");
+const { a, b, c, d, e, f, g, saw, pulse } = require("node-sfx/waves");
 const { lowPass } = require("node-sfx/filters");
 const { log } = require("node-sfx/utils");
 
 let octave = 4;
+let mix = 0.5
 let keys = [false, false, false, false, false, false, false]
 
 // synthesizer(
@@ -16,28 +17,24 @@ let keys = [false, false, false, false, false, false, false]
 // ).play();
 
 const filter = lowPass("lp")(440);
-const cap = limit(-0.9, 0.9);
+const cap = limit(-0.99, 0.99);
 
 synthesizer((time) => {
- 	return [
-		(keys[0] ? a(octave)(time) : 0),
-		(keys[1] ? b(octave)(time) : 0),
-		(keys[2] ? c(octave)(time) : 0),
-		(keys[3] ? d(octave)(time) : 0),
-		(keys[4] ? e(octave)(time) : 0),
-		(keys[5] ? f(octave)(time) : 0),
+ 	let base = (
+		(keys[0] ? a(octave)(time) : 0) +
+		(keys[1] ? b(octave)(time) : 0) +
+		(keys[2] ? c(octave)(time) : 0) +
+		(keys[3] ? d(octave)(time) : 0) +
+		(keys[4] ? e(octave)(time) : 0) +
+		(keys[5] ? f(octave)(time) : 0) +
 		(keys[6] ? g(octave)(time) : 0)
-	];
+	);
 
-	if (result > 1)
-		console.log(result)
+ 	let result = base + (saw(2)(time) + pulse(0.1)(time)) * mix,
 
-	if (result < -1)
-		console.log(result)
-
-	return result;
+	return cap(result);
 }).play({
-	channels: 7,
+	channels: 2,
 	sampleRate: 22050,
 	byteOrder: "LE",
 	bitDepth: 16,
