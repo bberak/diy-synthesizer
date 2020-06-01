@@ -19,7 +19,7 @@ const filter = lowPass("lr")(440);
 const cap = limit(-0.8, 0.8);
 
 synthesizer((time) => {
- 	return (
+ 	let result = return (
 		(keys[0] ? a(octave)(time) : 0) +
 		(keys[1] ? b(octave)(time) : 0) +
 		(keys[2] ? c(octave)(time) : 0) +
@@ -28,6 +28,11 @@ synthesizer((time) => {
 		(keys[5] ? f(octave)(time) : 0) +
 		(keys[6] ? g(octave)(time) : 0)
 	);
+
+	if (result > 1)
+		console.log(result)
+
+	return result;
 }).play({
 	channels: 2,
 	sampleRate: 22050,
