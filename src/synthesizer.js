@@ -25,11 +25,11 @@ const envelope = () => {
 			release = time;
 		}
 
-		const attackDuration = adsrConfig.attackDuration || 0.1;
-		const decayDuration = adsrConfig.decayDuration || 0.1;
-		const releaseDuration = adsrConfig.releaseDuration || 0.1;
-		const peak = adsrConfig.peak || 0.75;
-		const sustain = 0.5;
+		const attackDuration = adsrConfig.attackDuration || 0.2;
+		const decayDuration = adsrConfig.decayDuration || 0.5;
+		const releaseDuration = adsrConfig.releaseDuration || 0.5;
+		const peak = adsrConfig.peak || 0.85;
+		const sustain = 0.1;
 		
 		if (start) {
 			const duration = time - start;
@@ -89,7 +89,7 @@ synthesizer((time) => {
 		envelopes[6](g(octave)(time), keys[6], time)
 	);
 
- 	let result = base + effect(time) * mix;
+ 	let result = base ? base + effect(time) * mix : 0;
 
 	return cap(result) * volume;
 }).play({
@@ -145,13 +145,13 @@ const decreaseMix = () => {
 const increaseVolume = () => {
 	console.log("increase volume");
 
-	volume = limit(0, 1)(volume + 0.02);
+	volume = limit(0, 1)(volume + 0.05);
 };
 
 const decreaseVolume = () => {
 	console.log("decrease volume");
 
-	volume = limit(0, 1)(volume - 0.02);
+	volume = limit(0, 1)(volume - 0.05);
 };
 
 const nextAdsr = () => {
