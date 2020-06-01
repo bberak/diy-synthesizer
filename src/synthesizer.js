@@ -30,7 +30,7 @@ synthesizer((time) => {
 		(keys[6] ? g(octave)(time) : 0)
 	);
 
- 	let result = base + (saw(2)(time) + pulse(0.1)(time)) * mix,
+ 	let result = base + (saw(2)(time) + pulse(0.1)(time)) * mix;
 
 	return cap(result);
 }).play({
