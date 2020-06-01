@@ -20,8 +20,17 @@ const filter = lowPass("lr")(440);
 const cap = limit(-0.8, 0.8);
 
 synthesizer(time => {
+	console.log(Date.now())
 	return cap(filter(keys[0](time) * keys[1](time) * keys[2](time) * keys[3](time) * keys[4](time) * keys[5](time) * keys[6](time)));
-}).play();
+}).play({
+	channels: 2,
+	sampleRate: 2,
+	byteOrder: 'LE',
+	bitDepth: 16,
+	signed: true,
+	float: false,
+	interleaved: true
+});
 
 const nextEffect = () => {
 	console.log("next effect");
