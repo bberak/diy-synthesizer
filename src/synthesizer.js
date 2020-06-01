@@ -1,5 +1,5 @@
 const { synthesizer, loop, compose, map, scale, sum, split, limit } = require("node-sfx/core");
-const { a, b, c, d, e, f, g, saw, pulse, triangle, square, perlin } = require("node-sfx/waves");
+const { a, b, c, d, e, f, g, saw, pulse, triangle, square, perlin, sine } = require("node-sfx/waves");
 const { lowPass } = require("node-sfx/filters");
 const { log } = require("node-sfx/utils");
 
@@ -20,7 +20,6 @@ let effect = effects[0];
 const cap = limit(-0.99, 0.99);
 
 synthesizer((time) => {
-	let n = keys.filter(x => x).length || 1;
  	let base = (
 		(keys[0] ? a(octave)(time) : 0) +
 		(keys[1] ? b(octave)(time) : 0) +
@@ -29,7 +28,7 @@ synthesizer((time) => {
 		(keys[4] ? e(octave)(time) : 0) +
 		(keys[5] ? f(octave)(time) : 0) +
 		(keys[6] ? g(octave)(time) : 0)
-	) / n;
+	);
 
  	let result = base + effect(time) * mix;
 
