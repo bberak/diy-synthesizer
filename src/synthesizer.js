@@ -2,10 +2,9 @@ const { synthesizer, loop, compose, map, scale, sum, split, limit } = require("n
 const { a, b, c, d, e, f, g } = require("node-sfx/waves");
 const { lowPass } = require("node-sfx/filters");
 const { log } = require("node-sfx/utils");
-const nothing = () => 1;
 
 let octave = 4;
-let keys = [nothing, nothing, nothing, nothing, nothing, nothing, nothing]
+let keys = [false, false, false, false, false, false, false]
 
 // synthesizer(
 // 	compose(
@@ -19,17 +18,24 @@ let keys = [nothing, nothing, nothing, nothing, nothing, nothing, nothing]
 const filter = lowPass("lr")(440);
 const cap = limit(-0.8, 0.8);
 
-synthesizer(time => {
-	console.log(Date.now())
-	return cap(filter(keys[0](time) * keys[1](time) * keys[2](time) * keys[3](time) * keys[4](time) * keys[5](time) * keys[6](time)));
+synthesizer((time) => {
+	console.log(Date.now());
+	return 
+		keys[0] ? a(octave)(time) : 0 +
+		keys[1] ? b(octave)(time) : 0 +
+		keys[2] ? c(octave)(time) : 0 +
+		keys[3] ? d(octave)(time) : 0 +
+		keys[4] ? e(octave)(time) : 0 +
+		keys[5] ? f(octave)(time) : 0 +
+		keys[6] ? g(octave)(time) : 0
 }).play({
 	channels: 2,
 	sampleRate: 2,
-	byteOrder: 'LE',
+	byteOrder: "LE",
 	bitDepth: 16,
 	signed: true,
 	float: false,
-	interleaved: true
+	interleaved: true,
 });
 
 const nextEffect = () => {
@@ -83,85 +89,85 @@ const previousAdsr = () => {
 const aDown = () => {
 	console.log("a down");
 
-	keys[0] = a(octave);
+	keys[0] = true;
 }
 
 const aUp = () => {
 	console.log("a up");
 
-	keys[0] = nothing;
+	keys[0] = false;
 }
 
 const bDown = () => {
 	console.log("b down");
 
-	keys[1] = b(octave);
+	keys[1] = true;
 }
 
 const bUp = () => {
 	console.log("b up");
 
-	keys[1] = nothing;
+	keys[1] = false;
 }
 
 const cDown = () => {
 	console.log("c down");
 
-	keys[2] = c(octave)
+	keys[2] = true
 }
 
 const cUp = () => {
 	console.log("c up");
 
-	keys[2] = nothing;
+	keys[2] = false;
 }
 
 const dDown = () => {
 	console.log("d down");
 
-	keys[3] = d(octave);
+	keys[3] = true;
 }
 
 const dUp = () => {
 	console.log("d up");
 
-	keys[3] = nothing;
+	keys[3] = false;
 }
 
 const eDown = () => {
 	console.log("e down");
 
-	keys[4] = e(octave);
+	keys[4] = true;
 }
 
 const eUp = () => {
 	console.log("e up");
 
-	keys[4] = nothing;
+	keys[4] = false;
 }
 
 const fDown = () => {
 	console.log("f down");
 
-	keys[5] = f(octave);
+	keys[5] = true;
 }
 
 const fUp = () => {
 	console.log("f up");
 
-	keys[5] = nothing;
+	keys[5] = false;
 }
 
 const gDown = () => {
 	console.log("g down");
 
-	keys[6] = g(octave);
+	keys[6] = true;
 }
 
 const gUp = () => {
 	console.log("g up");
 
-	keys[6] = nothing;
+	keys[6] = false;
 }
 
 module.exports = {
