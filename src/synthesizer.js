@@ -32,7 +32,7 @@ synthesizer((time) => {
 	if (result > 1)
 		console.log(result)
 
-	if (result < 0)
+	if (result < -1)
 		console.log(result)
 
 	return result;
