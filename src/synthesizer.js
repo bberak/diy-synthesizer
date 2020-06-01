@@ -1,22 +1,22 @@
 const { synthesizer, loop, compose, map, scale, sum, split, limit } = require("node-sfx/core");
-const { a, b, c, d, e, f, g, saw, pulse } = require("node-sfx/waves");
+const { a, b, c, d, e, f, g, saw, pulse, triangle, square, perlin } = require("node-sfx/waves");
 const { lowPass } = require("node-sfx/filters");
 const { log } = require("node-sfx/utils");
 
 let octave = 4;
 let mix = 0.5
 let keys = [false, false, false, false, false, false, false]
-
-// synthesizer(
-// 	compose(
-// 		split(7),
-// 		map(keys),
-// 		sum,
-// 		//lowPass("lr")(440)
-// 	)
-// ).play();
-
-const filter = lowPass("lp")(440);
+let effects = [
+	(time) => (saw(2)(time) + pulse(0.1)(time)),
+	(time) => (saw(2)(time) + pulse(0.2)(time) + square(1)(time)),
+	(time) => (saw(2)(time) + pulse(0.2)(time) + square(5)(time)),
+	(time) => compose(triangle(4), lowPass("lp1")(220))(time),
+	(time) => sine(2)(time) * 4,
+	(time) => compose(sine(8), lowPass("lp2")(120))(time),
+	(time) => compose(sine(2), lowPass("lp2")(120))(time),
+	(time) => perlin(1)(time),
+];
+let effect = effects[0];
 const cap = limit(-0.99, 0.99);
 
 synthesizer((time) => {
@@ -31,7 +31,7 @@ synthesizer((time) => {
 		(keys[6] ? g(octave)(time) : 0)
 	) / n;
 
- 	let result = base + (saw(2)(time) + pulse(0.1)(time)) * mix;
+ 	let result = base + effect(time) * mix;
 
 	return cap(result);
 }).play({
@@ -46,10 +46,14 @@ synthesizer((time) => {
 
 const nextEffect = () => {
 	console.log("next effect");
+
+	effect = effects[effects.indexOf(effect) + 1] || effects[0];
 };
 
 const previousEffect = () => {
 	console.log("previous effect");
+
+	effect = effects[effects.indexOf(effect) - 1] || effects[effects.length - 1];
 };
 
 const randomEffect = () => {
