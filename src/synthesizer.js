@@ -82,7 +82,7 @@ synthesizer((time) => {
 		envelopes[3](d(octave)(time), keys[3], time) +
 		envelopes[4](e(octave)(time), keys[4], time) +
 		envelopes[5](f(octave)(time), keys[5], time) +
-		envelopes[6](g(octave)(time), keys[6], time) +
+		envelopes[6](g(octave)(time), keys[6], time)
 	);
 
  	let result = base + effect(time) * mix;
