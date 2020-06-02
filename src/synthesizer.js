@@ -70,7 +70,7 @@ let effects = [
 ];
 let effect = effects[0];
 let cap = limit(-0.99, 0.99);
-let filter = lowPass("lp0", 22050)(200, 0.7);
+let filter = lowPass("f1", 22050)(880, 0.7);
 let volume = 0.75
 
 synthesizer((time) => {
