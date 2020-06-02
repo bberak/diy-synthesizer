@@ -1,6 +1,6 @@
 const { synthesizer, loop, compose, map, scale, sum, split, limit } = require("node-sfx/core");
 const { a, b, c, d, e, f, g, saw, pulse, triangle, square, perlin, sine } = require("node-sfx/waves");
-const { lowPass } = require("node-sfx/filters");
+const { lowPass, movingAverage } = require("node-sfx/filters");
 const { log } = require("node-sfx/utils");
 
 const remap = (n, start1, stop1, start2, stop2) => {
@@ -70,6 +70,7 @@ let effects = [
 ];
 let effect = effects[0];
 let cap = limit(-0.99, 0.99);
+let avg = movingAverage("avg");
 let volume = 0.75
 
 synthesizer((time) => {
@@ -85,7 +86,7 @@ synthesizer((time) => {
 
  	const result = base ? base + effect(time) * mix : 0;
 
-	return cap(result) * volume;
+	return cap(avg(result)) * volume;
 }).play({
 	channels: 2,
 	sampleRate: 22050,
