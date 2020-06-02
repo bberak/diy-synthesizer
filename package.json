@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "sudo amixer cset numid=1 100% && sudo node src/index.js",
+    "start": "sudo amixer set PCM 100% && sudo node src/index.js",
     "shutdown": "sudo shutdown -h now",
     "reboot": "sudo shutdown -r now",
     "kill": "sudo killall node"
