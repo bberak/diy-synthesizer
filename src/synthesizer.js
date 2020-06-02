@@ -70,7 +70,7 @@ let effects = [
 ];
 let effect = effects[0];
 let cap = limit(-0.99, 0.99);
-let avg = movingAverage("avg");
+let filter = lowPass("lp0", 22050)(200, 0.7);
 let volume = 0.75
 
 synthesizer((time) => {
@@ -86,7 +86,7 @@ synthesizer((time) => {
 
  	const result = base ? base + effect(time) * mix : 0;
 
-	return cap(avg(result)) * volume;
+	return cap(filter(result)) * volume;
 }).play({
 	channels: 2,
 	sampleRate: 22050,
