@@ -105,14 +105,10 @@ synthesizer((time) => {
 });
 
 const nextEffect = () => {
-	console.log("next effect");
-
 	sfx = sfxPresets[sfxPresets.indexOf(sfx) + 1] || sfxPresets[0];
 };
 
 const previousEffect = () => {
-	console.log("previous effect");
-
 	sfx = sfxPresets[sfxPresets.indexOf(sfx) - 1] || sfxPresets[sfxPresets.length - 1];
 };
 
@@ -121,134 +117,90 @@ const randomEffect = () => {
 };
 
 const increaseOctave = () => {
-	console.log("increase octave");
-
 	octave += 0.2;
 };
 
 const decreaseOctave = () => {
-	console.log("decrease octave");
-
 	octave -= 0.2;
 };
 
 const increaseMix = () => {
-	console.log("increase mix");
-
 	mix += 0.02;
 };
 
 const decreaseMix = () => {
-	console.log("decrease mix");
-
 	mix += 0.02;
 };
 
 const increaseVolume = () => {
-	console.log("increase volume");
-
 	volume = limit(0, 1)(volume + 0.05);
 };
 
 const decreaseVolume = () => {
-	console.log("decrease volume");
-
 	volume = limit(0, 1)(volume - 0.05);
 };
 
 const nextAdsr = () => {
-	console.log("next adsr");
-
 	adsr = adsrPresets[adsrPresets.indexOf(adsr) + 1] || adsrPresets[0];
 };
 
 const previousAdsr = () => {
-	console.log("previous adsr");
-
 	adsr = adsrPresets[adsrPresets.indexOf(adsr) - 1] || adsrPresets[adsrPresets.length - 1];
 };
 
 const aDown = () => {
-	console.log("a down");
-
 	keys[0] = true;
 }
 
 const aUp = () => {
-	console.log("a up");
-
 	keys[0] = false;
 }
 
 const bDown = () => {
-	console.log("b down");
-
 	keys[1] = true;
 }
 
 const bUp = () => {
-	console.log("b up");
-
 	keys[1] = false;
 }
 
 const cDown = () => {
-	console.log("c down");
-
 	keys[2] = true
 }
 
 const cUp = () => {
-	console.log("c up");
-
 	keys[2] = false;
 }
 
 const dDown = () => {
-	console.log("d down");
-
 	keys[3] = true;
 }
 
 const dUp = () => {
-	console.log("d up");
-
 	keys[3] = false;
 }
 
 const eDown = () => {
-	console.log("e down");
-
 	keys[4] = true;
 }
 
 const eUp = () => {
-	console.log("e up");
-
 	keys[4] = false;
 }
 
 const fDown = () => {
-	console.log("f down");
-
 	keys[5] = true;
 }
 
 const fUp = () => {
-	console.log("f up");
-
 	keys[5] = false;
 }
 
 const gDown = () => {
-	console.log("g down");
-
 	keys[6] = true;
 }
 
 const gUp = () => {
-	console.log("g up");
-
 	keys[6] = false;
 }
 

@@ -1,4 +1,4 @@
-const synthesizer = require("./synthesizer");
+const synth = require("./synthesizer");
 const button = require("./pup-button");
 const knob = require("./rotary-encoder");
 
@@ -9,10 +9,10 @@ const leftKnob = knob({
 	buttonPin: 12,
 	channelAPin: 11,
 	channelBPin: 10,
-	onButtonDown: synthesizer.randomEffect,
+	onButtonDown: synth.randomEffect,
 	//onButtonUp: console.log,
-	onClockwiseTurn: synthesizer.nextEffect,
-	onCounterClockwiseTurn: synthesizer.previousEffect,
+	onClockwiseTurn: synth.nextEffect,
+	onCounterClockwiseTurn: synth.previousEffect,
 });
 
 const middleKnob = knob({
@@ -21,8 +21,8 @@ const middleKnob = knob({
 	channelBPin: 2,
 	onButtonDown: () => mixerMode = !mixerMode,
 	//onButtonUp: console.log,
-	onClockwiseTurn: () => mixerMode ? synthesizer.increaseMix() : synthesizer.increaseOctave(),
-	onCounterClockwiseTurn: () => mixerMode ? synthesizer.decreaseMix() : synthesizer.decreaseOctave(),
+	onClockwiseTurn: () => mixerMode ? synth.increaseMix() : synth.increaseOctave(),
+	onCounterClockwiseTurn: () => mixerMode ? synth.decreaseMix() : synth.decreaseOctave(),
 });
 
 const rightKnob = knob({
@@ -31,48 +31,48 @@ const rightKnob = knob({
 	channelBPin: 27,
 	onButtonDown: () => volumeMode = !volumeMode,
 	//onButtonUp: console.log,
-	onClockwiseTurn: () => volumeMode ? synthesizer.increaseVolume() : synthesizer.nextAdsr(),
-	onCounterClockwiseTurn: () => volumeMode ? synthesizer.decreaseVolume() : synthesizer.previousAdsr(),
+	onClockwiseTurn: () => volumeMode ? synth.increaseVolume() : synth.nextAdsr(),
+	onCounterClockwiseTurn: () => volumeMode ? synth.decreaseVolume() : synth.previousAdsr(),
 });
 
 const aButton = button({
 	pin: 21,
-	onButtonDown: synthesizer.aDown,
-	onButtonUp: synthesizer.aUp,
+	onButtonDown: synth.aDown,
+	onButtonUp: synth.aUp,
 });
 
 const bButton = button({
 	pin: 22,
-	onButtonDown: synthesizer.bDown,
-	onButtonUp: synthesizer.bUp,
+	onButtonDown: synth.bDown,
+	onButtonUp: synth.bUp,
 });
 
 const cButton = button({
 	pin: 3,
-	onButtonDown: synthesizer.cDown,
-	onButtonUp: synthesizer.cUp,
+	onButtonDown: synth.cDown,
+	onButtonUp: synth.cUp,
 });
 
 const dButton = button({
 	pin: 25,
-	onButtonDown: synthesizer.dDown,
-	onButtonUp: synthesizer.dUp,
+	onButtonDown: synth.dDown,
+	onButtonUp: synth.dUp,
 });
 
 const eButton = button({
 	pin: 5,
-	onButtonDown: synthesizer.eDown,
-	onButtonUp: synthesizer.eUp,
+	onButtonDown: synth.eDown,
+	onButtonUp: synth.eUp,
 });
 
 const fButton = button({
 	pin: 26,
-	onButtonDown: synthesizer.fDown,
-	onButtonUp: synthesizer.fUp,
+	onButtonDown: synth.fDown,
+	onButtonUp: synth.fUp,
 });
 
 const gButton = button({
 	pin: 9,
-	onButtonDown: synthesizer.gDown,
-	onButtonUp: synthesizer.gUp,
+	onButtonDown: synth.gDown,
+	onButtonUp: synth.gUp,
 });
