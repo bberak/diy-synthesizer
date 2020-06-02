@@ -165,7 +165,7 @@ const nextAdsr = () => {
 const previousAdsr = () => {
 	console.log("previous adsr");
 
-	adsr = sfxPresets[adsrPresets.indexOf(adsr) - 1] || adsrPresets[adsrPresets.length - 1];
+	adsr = adsrPresets[adsrPresets.indexOf(adsr) - 1] || adsrPresets[adsrPresets.length - 1];
 };
 
 const aDown = () => {
