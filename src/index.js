@@ -2,6 +2,9 @@ const synthesizer = require("./synthesizer");
 const button = require("./pup-button");
 const knob = require("./rotary-encoder");
 
+let mixerMode = false;
+let volumeMode = false;
+
 const leftKnob = knob({
 	buttonPin: 12,
 	channelAPin: 11,
@@ -16,20 +19,20 @@ const middleKnob = knob({
 	buttonPin: 8,
 	channelAPin: 4,
 	channelBPin: 2,
-	onButtonDown: () => console.log("switch to mixer or octave selection"),
+	onButtonDown: () => mixerMode = !mixerMode,
 	//onButtonUp: console.log,
-	onClockwiseTurn: synthesizer.increaseOctave,
-	onCounterClockwiseTurn: synthesizer.decreaseOctave,
+	onClockwiseTurn: () => mixerMode ? synthesizer.increaseMix() : synthesizer.increaseOctave(),
+	onCounterClockwiseTurn: () => mixerMode ? synthesizer.decreaseMix() : synthesizer.decreaseOctave(),
 });
 
 const rightKnob = knob({
 	buttonPin: 23,
 	channelAPin: 24,
 	channelBPin: 27,
-	onButtonDown: () => console.log("switch to adsr or volume selection"),
+	onButtonDown: () => volumeMode = !volumeMode,
 	//onButtonUp: console.log,
-	onClockwiseTurn: synthesizer.increaseVolume,
-	onCounterClockwiseTurn: synthesizer.decreaseVolume,
+	onClockwiseTurn: () => volumeMode ? synthesizer.increaseVolume() : synthesizer.nextAdsr(),
+	onCounterClockwiseTurn: () => volumeMode ? synthesizer.decreaseVolume() : synthesizer.previousAdsr(),
 });
 
 const aButton = button({

@@ -12,7 +12,7 @@ const envelope = () => {
 	let start = null;
 	let release = null;
 
-	return (amplitude, onOrOff, time, { attackDuration = 0.2, decayDuration = 0.5, releaseDuration = 0.5, peak = 0.85, sustain = 0.1 } = {}) => {
+	return (amplitude, onOrOff, time, { attackDuration, decayDuration, releaseDuration, peak, sustain }) => {
 		if (!keyDown && onOrOff) {
 			keyDown = true;
 			start = time;
@@ -57,7 +57,7 @@ let octave = 4;
 let mix = 0.5
 let keys = [false, false, false, false, false, false, false]
 let envelopes = [envelope(), envelope(), envelope(), envelope(), envelope(), envelope(), envelope()]
-let effects = [
+let sfxPresets = [
 	(time) => 1,
 	(time) => (saw(2)(time) + pulse(0.1)(time)),
 	(time) => (saw(2)(time) + pulse(0.2)(time) + square(1)(time)),
@@ -68,23 +68,30 @@ let effects = [
 	(time) => compose(sine(2), lowPass("lp2")(120))(time),
 	(time) => perlin(1)(time),
 ];
-let effect = effects[0];
+let sfx = sfxPresets[0];
 let cap = limit(-0.99, 0.99);
 let filter = lowPass("f1", 22050)(880, 0.35);
 let volume = 0.15
+let adsrPresets = [
+	{ attackDuration: 0.2, decayDuration: 0.5, releaseDuration: 0.5, peak: 0.85, sustain: 0.1 },
+	{ attackDuration: 0.2, decayDuration: 0.5, releaseDuration: 0.5, peak: 0.85, sustain: 0.5 },
+	{ attackDuration: 0.02, decayDuration: 0.5, releaseDuration: 0.5, peak: 0.85, sustain: 0.1 },
+	{ attackDuration: 0.02, decayDuration: 0.5, releaseDuration: 0.5, peak: 0.85, sustain: 0.5 }
+]
+let adsr = adsrPresets[0];
 
 synthesizer((time) => {
  	const base = (
-		envelopes[0](a(octave)(time), keys[0], time) +
-		envelopes[1](b(octave)(time), keys[1], time) +
-		envelopes[2](c(octave)(time), keys[2], time) +
-		envelopes[3](d(octave)(time), keys[3], time) +
-		envelopes[4](e(octave)(time), keys[4], time) +
-		envelopes[5](f(octave)(time), keys[5], time) +
-		envelopes[6](g(octave)(time), keys[6], time)
+		envelopes[0](a(octave)(time), keys[0], time, adsr) +
+		envelopes[1](b(octave)(time), keys[1], time, adsr) +
+		envelopes[2](c(octave)(time), keys[2], time, adsr) +
+		envelopes[3](d(octave)(time), keys[3], time, adsr) +
+		envelopes[4](e(octave)(time), keys[4], time, adsr) +
+		envelopes[5](f(octave)(time), keys[5], time, adsr) +
+		envelopes[6](g(octave)(time), keys[6], time, adsr)
 	);
 
- 	const result = base ? base + effect(time) * mix : 0;
+ 	const result = base ? base + sfx(time) * mix : 0;
 
 	return cap(filter(result)) * volume;
 }).play({
@@ -100,13 +107,13 @@ synthesizer((time) => {
 const nextEffect = () => {
 	console.log("next effect");
 
-	effect = effects[effects.indexOf(effect) + 1] || effects[0];
+	sfx = sfxPresets[sfxPresets.indexOf(sfx) + 1] || sfxPresets[0];
 };
 
 const previousEffect = () => {
 	console.log("previous effect");
 
-	effect = effects[effects.indexOf(effect) - 1] || effects[effects.length - 1];
+	sfx = sfxPresets[sfxPresets.indexOf(sfx) - 1] || sfxPresets[sfxPresets.length - 1];
 };
 
 const randomEffect = () => {
@@ -151,10 +158,14 @@ const decreaseVolume = () => {
 
 const nextAdsr = () => {
 	console.log("next adsr");
+
+	adsr = adsrPresets[adsrPresets.indexOf(adsr) + 1] || adsrPresets[0];
 };
 
 const previousAdsr = () => {
 	console.log("previous adsr");
+
+	adsr = sfxPresets[adsrPresets.indexOf(adsr) - 1] || adsrPresets[adsrPresets.length - 1];
 };
 
 const aDown = () => {
