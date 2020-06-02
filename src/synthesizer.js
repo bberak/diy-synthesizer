@@ -74,19 +74,23 @@ let filter = lowPass("f1", 22050)(880, 0.7);
 let volume = 0.75
 
 synthesizer((time) => {
- 	const base = (
+ 	const baseLeft = (
 		envelopes[0](a(octave)(time), keys[0], time) +
 		envelopes[1](b(octave)(time), keys[1], time) +
 		envelopes[2](c(octave)(time), keys[2], time) +
-		envelopes[3](d(octave)(time), keys[3], time) +
+		envelopes[3](d(octave)(time), keys[3], time)
+	);
+
+	const baseRight = (
 		envelopes[4](e(octave)(time), keys[4], time) +
 		envelopes[5](f(octave)(time), keys[5], time) +
 		envelopes[6](g(octave)(time), keys[6], time)
 	);
 
- 	const result = base ? base + effect(time) * mix : 0;
+ 	const resultLeft = baseLeft ? baseLeft + effect(time) * mix : 0;
+ 	const resultRight = baseRight ? baseRight + effect(time) * mix : 0;
 
-	return cap(filter(result)) * volume;
+	return [cap(filter(resultLeft)) * volume, cap(filter(resultRight)) * volume];
 }).play({
 	channels: 2,
 	sampleRate: 22050,
