@@ -7,13 +7,15 @@ let volumeMode = false;
 let buttonCount = 0;
 
 const buttonHandler = (cb) => () => {
-	cb();
-
 	buttonCount++;
 
+	console.log(buttonCount)
+
 	if (buttonCount === 3)
-		console.log("I would shut down now.. ", buttonCount)
-}
+		console.log("I would shut down now.. ")
+	else
+		cb();
+};
 
 const leftKnob = knob({
 	buttonPin: 12,
