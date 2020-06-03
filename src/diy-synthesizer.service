@@ -2,9 +2,11 @@
 Description=DIY Synthesizer Service
 
 [Service]
+Type=simple
 WorkingDirectory=/home/pi/Dev/diy-synthesizer
 ExecStart=sudo /home/pi/.nvm/versions/node/v8.16.2/bin/node /home/pi/Dev/diy-synthesizer/src/index.js
 Restart=always
+RestartSec=5
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=diy-synthesizer

@@ -36,6 +36,8 @@ systemctl status diy-synthesizer.service # make sure service is active (running)
 
 Finally, reboot to see it in action and test that it works.
 
+> [This article will help you debug in case of problems](https://community.chakralinux.org/t/how-to-investigate-systemd-errors/7024)
+
 ## Built with open source tools 💕
 
 - [node-sfx](https://github.com/bberak/node-sfx)
