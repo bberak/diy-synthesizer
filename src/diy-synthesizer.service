@@ -2,8 +2,7 @@
 Description=DIY Synthesizer Service
 
 [Service]
-Type=simple
-WorkingDirectory=~/Dev/diy-synthesizer
+WorkingDirectory=/home/pi/Dev/diy-synthesizer
 ExecStart=/home/pi/.nvm/versions/node/v8.16.2/bin/npm run start
 Restart=always
 StandardOutput=syslog
