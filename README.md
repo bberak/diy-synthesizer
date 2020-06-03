@@ -18,25 +18,22 @@ npm run start
 
 ## Making Sure The Synthesizer Is Always Running
 
-Create a service file under `/etc/systemd/system` with the following contents:
+Copy the example service file to the `systemd` folder:
 
 ```
-[Service]
-WorkingDirectory=~/Dev/diy-synthesizer
-ExecStart=/home/pi/.nvm/versions/node/v8.16.2/bin/npm run start
-Restart=always
-StandardOutput=syslog
-StandardError=syslog
-SyslogIdentifier=diy-synthesizer
-User=pi
-
-[Install]
-WantedBy=multi-user.target
+sudo mv src/diy-synthesizer.service /etc/systemd/system/diy-synthesizer.service
 ```
 
-> Make sure you change the paths and user to suit your environment. An example service file has been saved in the `src` folder.
+> Make sure you change the contents of this file to reference paths in your environment.
 
-Finally, reboot to see it in action.
+Enable and start the servie:
+
+```
+systemctl enable diy-synthesizer # follow the prompts
+systemctl start diy-synthesizer  # follow the prompts
+```
+
+Finally, reboot to see it in action and test that it works.
 
 ### Create a Cronjob 
 
