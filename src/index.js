@@ -20,7 +20,7 @@ const middleKnob = knob({
 	channelAPin: 4,
 	channelBPin: 2,
 	onButtonDown: () => mixerMode = !mixerMode,
-	//onButtonUp: console.log,
+	onButtonUp: () => console.log("middle knob up"),
 	onClockwiseTurn: () => mixerMode ? synth.increaseMix() : synth.increaseOctave(),
 	onCounterClockwiseTurn: () => mixerMode ? synth.decreaseMix() : synth.decreaseOctave(),
 });
