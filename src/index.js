@@ -1,18 +1,17 @@
 const synth = require("./synthesizer");
 const button = require("./pup-button");
 const knob = require("./rotary-encoder");
+const { exec } = require('child_process');
 
 let mixerMode = false;
 let volumeMode = false;
 let buttonCount = 0;
 
-const buttonHandler = (cb) => () => {
+const shutdownListener = (cb) => () => {
 	buttonCount++;
 
-	console.log(buttonCount)
-
 	if (buttonCount === 3)
-		console.log("I would shut down now.. ")
+		exec("sudo shutdown -h now");
 	else
 		cb();
 };
@@ -21,7 +20,7 @@ const leftKnob = knob({
 	buttonPin: 12,
 	channelAPin: 11,
 	channelBPin: 10,
-	onButtonDown: buttonHandler(synth.randomEffect),
+	onButtonDown: shutdownListener(synth.randomEffect),
 	onButtonUp: () => buttonCount--,
 	onClockwiseTurn: synth.nextEffect,
 	onCounterClockwiseTurn: synth.previousEffect,
@@ -31,7 +30,7 @@ const middleKnob = knob({
 	buttonPin: 8,
 	channelAPin: 4,
 	channelBPin: 2,
-	onButtonDown: buttonHandler(() => mixerMode = !mixerMode),
+	onButtonDown: shutdownListener(() => mixerMode = !mixerMode),
 	onButtonUp: () => buttonCount--,
 	onClockwiseTurn: () => mixerMode ? synth.increaseMix() : synth.increaseOctave(),
 	onCounterClockwiseTurn: () => mixerMode ? synth.decreaseMix() : synth.decreaseOctave(),
@@ -41,7 +40,7 @@ const rightKnob = knob({
 	buttonPin: 23,
 	channelAPin: 24,
 	channelBPin: 27,
-	onButtonDown: buttonHandler(() => volumeMode = !volumeMode),
+	onButtonDown: shutdownListener(() => volumeMode = !volumeMode),
 	onButtonUp: () => buttonCount--,
 	onClockwiseTurn: () => volumeMode ? synth.increaseVolume() : synth.nextAdsr(),
 	onCounterClockwiseTurn: () => volumeMode ? synth.decreaseVolume() : synth.previousAdsr(),
