@@ -3,6 +3,8 @@ const button = require("./pup-button");
 const knob = require("./rotary-encoder");
 const { exec } = require('child_process');
 
+exec("sudo amixer set PCM 100%");
+
 let mixerMode = false;
 let volumeMode = false;
 let buttonCount = 0;
