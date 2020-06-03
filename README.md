@@ -21,7 +21,7 @@ npm run start
 Copy the example service file to the `systemd` folder:
 
 ```
-sudo mv src/diy-synthesizer.service /etc/systemd/system/diy-synthesizer.service
+sudo cp src/diy-synthesizer.service /etc/systemd/system/diy-synthesizer.service
 ```
 
 > Make sure you change the contents of this file to reference paths in your environment.
