@@ -70,7 +70,7 @@ let sfxPresets = [
 ];
 let sfx = sfxPresets[0];
 let cap = limit(-0.99, 0.99);
-let filter = lowPass("f1", 22050)(880, 0.35);
+let filter = lowPass("f1", 16000)(880, 0.35);
 let volume = 0.15
 let adsrPresets = [
 	{ attackDuration: 0.2, decayDuration: 0.5, releaseDuration: 0.5, peak: 0.85, sustain: 0.1 },
@@ -96,7 +96,7 @@ synthesizer((time) => {
 	return cap(filter(result)) * volume;
 }).play({
 	channels: 2,
-	sampleRate: 22050,
+	sampleRate: 16000,
 	byteOrder: "LE",
 	bitDepth: 16,
 	signed: true,
