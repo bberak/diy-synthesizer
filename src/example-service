@@ -1,0 +1,11 @@
+[Service]
+WorkingDirectory=~/Dev/diy-synthesizer
+ExecStart=/home/pi/.nvm/versions/node/v8.16.2/bin/npm run start
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=diy-synthesizer
+User=pi
+
+[Install]
+WantedBy=multi-user.target

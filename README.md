@@ -16,6 +16,37 @@ npm install
 npm run start
 ```
 
+## Making Sure The Synthesizer Is Always Running
+
+Create a service file under `/etc/systemd/system` with the following contents:
+
+```
+[Service]
+WorkingDirectory=~/Dev/diy-synthesizer
+ExecStart=/home/pi/.nvm/versions/node/v8.16.2/bin/npm run start
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=diy-synthesizer
+User=pi
+
+[Install]
+WantedBy=multi-user.target
+```
+
+> Make sure you change the paths and user to suit your environment. An example service file has been saved in the `src` folder.
+
+### Create a Cronjob 
+
+If you want to automatically start the synthesizer after a reboot (or error), you can add a cron job.
+
+Run `sudo crontab -e`
+
+Then add the following line to check if the process is running every 5 seconds
+
+```
+```
+
 ## Built with open source tools 💕
 
 - [node-sfx](https://github.com/bberak/node-sfx)
@@ -26,7 +57,7 @@ npm run start
 
 MIT License
 
-Copyright (c) 2019 Boris Berak
+Copyright (c) 2020 Boris Berak
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
