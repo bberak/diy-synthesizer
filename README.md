@@ -36,6 +36,8 @@ WantedBy=multi-user.target
 
 > Make sure you change the paths and user to suit your environment. An example service file has been saved in the `src` folder.
 
+Finally, reboot to see it in action.
+
 ### Create a Cronjob 
 
 If you want to automatically start the synthesizer after a reboot (or error), you can add a cron job.
