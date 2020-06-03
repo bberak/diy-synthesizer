@@ -2,6 +2,7 @@ const { synthesizer, loop, compose, map, scale, sum, split, limit } = require("n
 const { a, b, c, d, e, f, g, saw, pulse, triangle, square, perlin, sine } = require("node-sfx/waves");
 const { lowPass, movingAverage } = require("node-sfx/filters");
 const { log } = require("node-sfx/utils");
+const sampleRate = 16000;
 
 const remap = (n, start1, stop1, start2, stop2) => {
   return (n - start1) / (stop1 - start1) * (stop2 - start2) + start2;
@@ -62,15 +63,15 @@ let sfxPresets = [
 	(time) => (saw(2)(time) + pulse(0.1)(time)),
 	(time) => (saw(2)(time) + pulse(0.2)(time) + square(1)(time)),
 	(time) => (saw(2)(time) + pulse(0.2)(time) + square(5)(time)),
-	(time) => compose(triangle(4), lowPass("lp1")(220))(time),
+	(time) => compose(triangle(4), lowPass("lp1", sampleRate)(220))(time),
 	(time) => sine(2)(time) * 4,
-	(time) => compose(sine(8), lowPass("lp2")(120))(time),
-	(time) => compose(sine(2), lowPass("lp2")(120))(time),
+	(time) => compose(sine(8), lowPass("lp2", sampleRate)(120))(time),
+	(time) => compose(sine(2), lowPass("lp2", sampleRate)(120))(time),
 	(time) => perlin(1)(time),
 ];
 let sfx = sfxPresets[0];
 let cap = limit(-0.99, 0.99);
-let filter = lowPass("f1", 16000)(880, 0.35);
+let filter = lowPass("f1", sampleRate)(880, 0.35);
 let volume = 0.15
 let adsrPresets = [
 	{ attackDuration: 0.2, decayDuration: 0.5, releaseDuration: 0.5, peak: 0.85, sustain: 0.1 },
@@ -95,8 +96,8 @@ synthesizer((time) => {
 
 	return cap(filter(result)) * volume;
 }).play({
+	sampleRate,
 	channels: 2,
-	sampleRate: 16000,
 	byteOrder: "LE",
 	bitDepth: 16,
 	signed: true,
