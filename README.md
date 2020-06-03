@@ -31,20 +31,10 @@ Enable and start the servie:
 ```
 systemctl enable diy-synthesizer # follow the prompts
 systemctl start diy-synthesizer  # follow the prompts
+systemctl status diy-synthesizer.service # make sure service is active (running)
 ```
 
 Finally, reboot to see it in action and test that it works.
-
-### Create a Cronjob 
-
-If you want to automatically start the synthesizer after a reboot (or error), you can add a cron job.
-
-Run `sudo crontab -e`
-
-Then add the following line to check if the process is running every 5 seconds
-
-```
-```
 
 ## Built with open source tools 💕
 
