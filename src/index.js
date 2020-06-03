@@ -4,13 +4,23 @@ const knob = require("./rotary-encoder");
 
 let mixerMode = false;
 let volumeMode = false;
+let buttonCount = 0;
+
+const buttonHandler = (cb) => () => {
+	cb();
+
+	buttonCount++;
+
+	if (buttonCount === 3)
+		console.log("I would shut down now.. ", buttonCount)
+}
 
 const leftKnob = knob({
 	buttonPin: 12,
 	channelAPin: 11,
 	channelBPin: 10,
-	onButtonDown: synth.randomEffect,
-	//onButtonUp: console.log,
+	onButtonDown: buttonHandler(synth.randomEffect),
+	onButtonUp: () => buttonCount--,
 	onClockwiseTurn: synth.nextEffect,
 	onCounterClockwiseTurn: synth.previousEffect,
 });
@@ -19,8 +29,8 @@ const middleKnob = knob({
 	buttonPin: 8,
 	channelAPin: 4,
 	channelBPin: 2,
-	onButtonDown: () => mixerMode = !mixerMode,
-	onButtonUp: () => console.log("middle knob up"),
+	onButtonDown: buttonHandler(() => mixerMode = !mixerMode),
+	onButtonUp: () => buttonCount--,
 	onClockwiseTurn: () => mixerMode ? synth.increaseMix() : synth.increaseOctave(),
 	onCounterClockwiseTurn: () => mixerMode ? synth.decreaseMix() : synth.decreaseOctave(),
 });
@@ -29,8 +39,8 @@ const rightKnob = knob({
 	buttonPin: 23,
 	channelAPin: 24,
 	channelBPin: 27,
-	onButtonDown: () => volumeMode = !volumeMode,
-	//onButtonUp: console.log,
+	onButtonDown: buttonHandler(() => volumeMode = !volumeMode),
+	onButtonUp: () => buttonCount--,
 	onClockwiseTurn: () => volumeMode ? synth.increaseVolume() : synth.nextAdsr(),
 	onCounterClockwiseTurn: () => volumeMode ? synth.decreaseVolume() : synth.previousAdsr(),
 });
