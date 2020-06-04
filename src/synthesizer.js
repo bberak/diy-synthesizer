@@ -1,41 +1,8 @@
 const { synthesizer, loop, compose, map, scale, sum, split, limit } = require("node-sfx/core");
-const { saw, pulse, triangle, square, perlin, sine } = require("node-sfx/waves");
+const { a, b, c, d, e, f, g, saw, pulse, triangle, square, perlin, sine } = require("node-sfx/waves");
 const { lowPass, movingAverage } = require("node-sfx/filters");
 const { log } = require("node-sfx/utils");
 const sampleRate = 16000;
-
-
-
-
-
-
-const note = n => (octave = 4, wave = sine) => wave(27.5 * Math.pow(2, octave + n));
-
-const a = note(0 / 12);
-
-const b = note(2 / 12);
-
-const c = note(3 / 12);
-
-const d = note(5 / 12);
-
-const e = note(7 / 12);
-
-const f = note(8 / 12);
-
-const g = note(10 / 12);
-
-
-
-
-
-
-
-
-
-
-
-
 
 const remap = (n, start1, stop1, start2, stop2) => {
   return (n - start1) / (stop1 - start1) * (stop2 - start2) + start2;
@@ -92,15 +59,19 @@ let mix = 0.5
 let keys = [false, false, false, false, false, false, false]
 let envelopes = [envelope(), envelope(), envelope(), envelope(), envelope(), envelope(), envelope()]
 let sfxPresets = [
-	(time) => 1,
-	(time) => (saw(2)(time) + pulse(0.1)(time)),
-	(time) => (saw(2)(time) + pulse(0.2)(time) + square(1)(time)),
-	(time) => (saw(2)(time) + pulse(0.2)(time) + square(5)(time)),
-	(time) => compose(triangle(4), lowPass("lp1", sampleRate)(220))(time),
-	(time) => sine(2)(time) * 4,
-	(time) => compose(sine(8), lowPass("lp2", sampleRate)(120))(time),
-	(time) => compose(sine(2), lowPass("lp2", sampleRate)(120))(time),
-	(time) => perlin(1)(time),
+	{ wave: sine, effect: time => 1 },
+	{ wave: saw, effect: time => 1 },
+	{ wave: pulse, effect: time => 1 },
+	{ wave: triangle, effect: time => 1 },
+	{ wave: square, effect: time => 1 },
+	{ wave: sine, effect: time => saw(2)(time) + pulse(0.1)(time) },
+	{ wave: sine, effect: time => saw(2)(time) + pulse(0.2)(time) + square(1)(time) },
+	{ wave: sine, effect: time => saw(2)(time) + pulse(0.2)(time) + square(5)(time) },
+	{ wave: sine, effect: time => compose(triangle(4), lowPass("lp1", sampleRate)(220))(time) },
+	{ wave: sine, effect: time => sine(2)(time) * 4 },
+	{ wave: sine, effect: time => compose(sine(8), lowPass("lp2", sampleRate)(120))(time) },
+	{ wave: sine, effect: time => compose(sine(2), lowPass("lp2", sampleRate)(120))(time) },
+	{ wave: sine, effect: time => perlin(1)(time) },
 ];
 let sfx = sfxPresets[0];
 let cap = limit(-0.99, 0.99);
@@ -115,17 +86,18 @@ let adsrPresets = [
 let adsr = adsrPresets[0];
 
 synthesizer((time) => {
+	const { wave, effect } = sfx;
  	const base = (
-		envelopes[0](a(octave)(time), keys[0], time, adsr) +
-		envelopes[1](b(octave)(time), keys[1], time, adsr) +
-		envelopes[2](c(octave)(time), keys[2], time, adsr) +
-		envelopes[3](d(octave)(time), keys[3], time, adsr) +
-		envelopes[4](e(octave)(time), keys[4], time, adsr) +
-		envelopes[5](f(octave)(time), keys[5], time, adsr) +
-		envelopes[6](g(octave)(time), keys[6], time, adsr)
+		envelopes[0](a(octave, wave)(time), keys[0], time, adsr) +
+		envelopes[1](b(octave, wave)(time), keys[1], time, adsr) +
+		envelopes[2](c(octave, wave)(time), keys[2], time, adsr) +
+		envelopes[3](d(octave, wave)(time), keys[3], time, adsr) +
+		envelopes[4](e(octave, wave)(time), keys[4], time, adsr) +
+		envelopes[5](f(octave, wave)(time), keys[5], time, adsr) +
+		envelopes[6](g(octave, wave)(time), keys[6], time, adsr)
 	);
 
- 	const result = base ? base + sfx(time) * mix : 0;
+ 	const result = base ? base + effect(time) * mix : 0;
 
 	return cap(filter(result)) * volume;
 }).play({
