@@ -18,11 +18,9 @@ const shutdownListener = (cb) => () => {
 
 	buttonCount++;
 
-	if (buttonCount >= 3) {
-		exec(`echo -e "\a"`)
+	if (buttonCount >= 3)
 		process.exit();
 		//exec("sudo shutdown -h now");
-	}
 	else
 		cb();
 };
