@@ -1,8 +1,41 @@
 const { synthesizer, loop, compose, map, scale, sum, split, limit } = require("node-sfx/core");
-const { a, b, c, d, e, f, g, saw, pulse, triangle, square, perlin, sine } = require("node-sfx/waves");
+const { saw, pulse, triangle, square, perlin, sine } = require("node-sfx/waves");
 const { lowPass, movingAverage } = require("node-sfx/filters");
 const { log } = require("node-sfx/utils");
 const sampleRate = 16000;
+
+
+
+
+
+
+const note = n => (octave = 4, wave = sine) => wave(27.5 * Math.pow(2, octave + n));
+
+const a = note(0 / 12);
+
+const b = note(2 / 12);
+
+const c = note(3 / 12);
+
+const d = note(5 / 12);
+
+const e = note(7 / 12);
+
+const f = note(8 / 12);
+
+const g = note(10 / 12);
+
+
+
+
+
+
+
+
+
+
+
+
 
 const remap = (n, start1, stop1, start2, stop2) => {
   return (n - start1) / (stop1 - start1) * (stop2 - start2) + start2;
