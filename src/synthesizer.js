@@ -12,7 +12,7 @@ const pulse25 = (freq) => pulse(freq, 0.25);
 
 const pulse50 = (freq) => pulse(freq, 0.5); 
 
-const pulse50 = (freq) => pulse(freq, 0.75); 
+const pulse75 = (freq) => pulse(freq, 0.75); 
 
 const envelope = () => {
 	let keyDown = false;
