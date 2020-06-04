@@ -8,9 +8,13 @@ const remap = (n, start1, stop1, start2, stop2) => {
   return (n - start1) / (stop1 - start1) * (stop2 - start2) + start2;
 }
 
-const pulse25 = (freq) => square(freq, 0.25); 
+const sawInverse = (freq) => saw(freq, true);
 
-const pulse50 = (freq) => square(freq, 0.5); 
+const triangle25 = (freq) => triangle(freq, 0.25);
+
+const triangle75 = (freq) => triangle(freq, 0.75);
+
+const pulse25 = (freq) => square(freq, 0.25); 
 
 const pulse75 = (freq) => square(freq, 0.75); 
 
@@ -19,7 +23,7 @@ const envelope = () => {
 	let start = null;
 	let release = null;
 
-	return (amplitude, onOrOff, time, { attackDuration, decayDuration, releaseDuration, peak, sustain }) => {
+	return (onOrOff, time, { attackDuration, decayDuration, releaseDuration, peak, sustain }) => {
 		if (!keyDown && onOrOff) {
 			keyDown = true;
 			start = time;
@@ -37,13 +41,13 @@ const envelope = () => {
 
 			if (duration < attackDuration) {
 				// attacking
-				return remap(duration, 0, attackDuration, 0, peak) * amplitude;
+				return remap(duration, 0, attackDuration, 0, peak);
 			} else if (duration < (attackDuration + decayDuration)) {
 				// decaying
-				return remap(duration - attackDuration, 0, decayDuration, peak, sustain) * amplitude;
+				return remap(duration - attackDuration, 0, decayDuration, peak, sustain);
 			} else {
 				// sustaining
-				return sustain * amplitude;
+				return sustain;
 			}
 		}
 
@@ -52,7 +56,7 @@ const envelope = () => {
 
 			if (duration < releaseDuration) {
 				// releasing
-				return remap(duration, 0, releaseDuration, sustain, 0) * amplitude;
+				return remap(duration, 0, releaseDuration, sustain, 0);
 			}
 		}
 
@@ -61,30 +65,36 @@ const envelope = () => {
 }
 
 let octave = 4;
-let mix = 0.5
-let keys = [false, false, false, false, false, false, false]
-let envelopes = [envelope(), envelope(), envelope(), envelope(), envelope(), envelope(), envelope()]
-let sfxPresets = [
-	{ wave: sine, effect: time => 1 },
-	{ wave: saw, effect: time => 1 },
-	{ wave: triangle, effect: time => 1 },
-	{ wave: square, effect: time => 1 },
-	{ wave: pulse25, effect: time => 1 },
-	{ wave: pulse50, effect: time => 1 },
-	{ wave: pulse75, effect: time => 1 },
-	{ wave: sine, effect: time => saw(2)(time) + pulse(0.1)(time) },
-	{ wave: sine, effect: time => saw(2)(time) + pulse(0.2)(time) + square(1)(time) },
-	{ wave: sine, effect: time => saw(2)(time) + pulse(0.2)(time) + square(5)(time) },
-	{ wave: sine, effect: time => compose(triangle(4), lowPass("lp1", sampleRate)(220))(time) },
-	{ wave: sine, effect: time => sine(2)(time) * 4 },
-	{ wave: sine, effect: time => compose(sine(8), lowPass("lp2", sampleRate)(120))(time) },
-	{ wave: sine, effect: time => compose(sine(2), lowPass("lp2", sampleRate)(120))(time) },
-	{ wave: sine, effect: time => perlin(1)(time) },
-];
-let sfx = sfxPresets[0];
-let cap = limit(-0.99, 0.99);
-let filter = x => x; //lowPass("f1", sampleRate)(880, 0.35);
 let volume = 0.15
+let cap = limit(-0.99, 0.99);
+let keys = [false, false, false, false, false, false, false]
+let volumeEnvelopes = [envelope(), envelope(), envelope(), envelope(), envelope(), envelope(), envelope()]
+let wavePresets = [
+	sine,
+	saw,
+	sawInverse,
+	triangle,
+	triangle25,
+	triangle75,
+	square,
+	pulse25,
+	pulse75,
+	freq => time => sine(freq)(time) + saw(freq)(time),
+	freq => time => sine(freq)(time) + triangle(freq)(time),
+	freq => time => sine(freq)(time) + triangle25(freq)(time),
+	freq => time => sine(freq)(time) + triang75(freq)(time),
+	freq => time => sine(freq)(time) + square(freq)(time),
+	freq => time => sine(freq)(time) + pulse25(freq)(time),
+	freq => time => sine(freq)(time) + pulse75(freq)(time),
+	freq => time => sine(freq)(time) * saw(freq)(time),
+	freq => time => sine(freq)(time) * triangle(freq)(time),
+	freq => time => sine(freq)(time) * triangle25(freq)(time),
+	freq => time => sine(freq)(time) * triang75(freq)(time),
+	freq => time => sine(freq)(time) * square(freq)(time),
+	freq => time => sine(freq)(time) * pulse25(freq)(time),
+	freq => time => sine(freq)(time) * pulse75(freq)(time)
+];
+let wave = wavePresets[0];
 let adsrPresets = [
 	{ attackDuration: 0.2, decayDuration: 0.5, releaseDuration: 0.5, peak: 0.85, sustain: 0.1 },
 	{ attackDuration: 0.2, decayDuration: 0.5, releaseDuration: 0.5, peak: 0.85, sustain: 0.5 },
@@ -94,20 +104,17 @@ let adsrPresets = [
 let adsr = adsrPresets[0];
 
 synthesizer((time) => {
-	const { wave, effect } = sfx;
  	const base = (
-		envelopes[0](a(octave, wave)(time), keys[0], time, adsr) +
-		envelopes[1](b(octave, wave)(time), keys[1], time, adsr) +
-		envelopes[2](c(octave, wave)(time), keys[2], time, adsr) +
-		envelopes[3](d(octave, wave)(time), keys[3], time, adsr) +
-		envelopes[4](e(octave, wave)(time), keys[4], time, adsr) +
-		envelopes[5](f(octave, wave)(time), keys[5], time, adsr) +
-		envelopes[6](g(octave, wave)(time), keys[6], time, adsr)
+		a(octave, wave)(time) * volumeEnvelopes[0](keys[0], time, adsr) +
+		b(octave, wave)(time) * volumeEnvelopes[1](keys[1], time, adsr) +
+		c(octave, wave)(time) * volumeEnvelopes[2](keys[2], time, adsr) +
+		d(octave, wave)(time) * volumeEnvelopes[3](keys[3], time, adsr) +
+		e(octave, wave)(time) * volumeEnvelopes[4](keys[4], time, adsr) +
+		f(octave, wave)(time) * volumeEnvelopes[5](keys[5], time, adsr) +
+		g(octave, wave)(time) * volumeEnvelopes[6](keys[6], time, adsr)
 	);
 
- 	const result = base ? base + effect(time) * mix : 0;
-
-	return cap(filter(result)) * volume;
+	return cap(base) * volume;
 }).play({
 	sampleRate,
 	channels: 2,
@@ -118,16 +125,16 @@ synthesizer((time) => {
 	interleaved: true,
 });
 
-const nextEffect = () => {
-	sfx = sfxPresets[sfxPresets.indexOf(sfx) + 1] || sfxPresets[0];
+const nextWave = () => {
+	wave = wavePresets[wavePresets.indexOf(wave) + 1] || wavePresets[0];
 };
 
-const previousEffect = () => {
-	sfx = sfxPresets[sfxPresets.indexOf(sfx) - 1] || sfxPresets[sfxPresets.length - 1];
+const previousWave = () => {
+	wave = wavePresets[wavePresets.indexOf(wave) - 1] || wavePresets[wavePresets.length - 1];
 };
 
-const randomEffect = () => {
-	console.log("random effect");
+const randomWave = () => {
+	console.log("random wave not implemented");
 };
 
 const increaseOctave = () => {
@@ -138,13 +145,21 @@ const decreaseOctave = () => {
 	octave -= 0.2;
 };
 
-const increaseMix = () => {
-	mix += 0.02;
-};
+// const increaseCutoff = () => {
+// 	mix += 0.02;
+// };
 
-const decreaseMix = () => {
-	mix += 0.02;
-};
+// const decreaseCutoff = () => {
+// 	mix += 0.02;
+// };
+
+// const increaseLFO = () => {
+// 	mix += 0.02;
+// };
+
+// const decreaseLFO = () => {
+// 	mix += 0.02;
+// };
 
 const increaseVolume = () => {
 	volume = limit(0, 1)(volume + 0.05);

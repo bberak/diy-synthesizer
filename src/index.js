@@ -5,7 +5,6 @@ const { exec } = require('child_process');
 
 exec("sudo amixer set PCM 100%");
 
-let mixerMode = false;
 let volumeMode = false;
 let buttonCount = 0;
 
@@ -21,7 +20,7 @@ const shutdownListener = (cb) => () => {
 	if (buttonCount >= 3)
 		process.exit();
 		//exec("sudo shutdown -h now");
-	else
+	else if (cb)
 		cb();
 };
 
@@ -29,20 +28,20 @@ const leftKnob = knob({
 	buttonPin: 12,
 	channelAPin: 11,
 	channelBPin: 10,
-	onButtonDown: shutdownListener(synth.randomEffect),
+	onButtonDown: shutdownListener(synth.randomWave),
 	onButtonUp: () => buttonCount--,
-	onClockwiseTurn: synth.nextEffect,
-	onCounterClockwiseTurn: synth.previousEffect,
+	onClockwiseTurn: synth.nextWave,
+	onCounterClockwiseTurn: synth.previousWave,
 });
 
 const middleKnob = knob({
 	buttonPin: 8,
 	channelAPin: 4,
 	channelBPin: 2,
-	onButtonDown: shutdownListener(() => mixerMode = !mixerMode),
+	onButtonDown: shutdownListener(),
 	onButtonUp: () => buttonCount--,
-	onClockwiseTurn: () => mixerMode ? synth.increaseMix() : synth.increaseOctave(),
-	onCounterClockwiseTurn: () => mixerMode ? synth.decreaseMix() : synth.decreaseOctave(),
+	onClockwiseTurn: synth.increaseOctave,
+	onCounterClockwiseTurn: synth.decreaseOctave,
 });
 
 const rightKnob = knob({
