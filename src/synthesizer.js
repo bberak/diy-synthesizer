@@ -59,9 +59,9 @@ let mix = 0.5
 let keys = [false, false, false, false, false, false, false]
 let envelopes = [envelope(), envelope(), envelope(), envelope(), envelope(), envelope(), envelope()]
 let sfxPresets = [
-	{ wave: sine, effect: time => 1 },
+	{ wave: pulse, effect: time => 1 },
 	{ wave: saw, effect: time => 1 },
-	{ name: "pulse", wave: pulse, effect: time => 1 },
+	{ wave: pulse, effect: time => 1 },
 	{ wave: triangle, effect: time => 1 },
 	{ wave: square, effect: time => 1 },
 	{ wave: sine, effect: time => saw(2)(time) + pulse(0.1)(time) },
@@ -112,16 +112,10 @@ synthesizer((time) => {
 
 const nextEffect = () => {
 	sfx = sfxPresets[sfxPresets.indexOf(sfx) + 1] || sfxPresets[0];
-
-	if (sfx.name)
-		console.log(sfx.name);
 };
 
 const previousEffect = () => {
 	sfx = sfxPresets[sfxPresets.indexOf(sfx) - 1] || sfxPresets[sfxPresets.length - 1];
-
-	if (sfx.name)
-		console.log(sfx.name);
 };
 
 const randomEffect = () => {
