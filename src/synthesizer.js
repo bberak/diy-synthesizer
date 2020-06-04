@@ -8,6 +8,12 @@ const remap = (n, start1, stop1, start2, stop2) => {
   return (n - start1) / (stop1 - start1) * (stop2 - start2) + start2;
 }
 
+const pulse25 = (freq) => pulse(freq, 0.25); 
+
+const pulse50 = (freq) => pulse(freq, 0.5); 
+
+const pulse50 = (freq) => pulse(freq, 0.75); 
+
 const envelope = () => {
 	let keyDown = false;
 	let start = null;
@@ -63,6 +69,9 @@ let sfxPresets = [
 	{ wave: saw, effect: time => 1 },
 	{ wave: triangle, effect: time => 1 },
 	{ wave: square, effect: time => 1 },
+	{ wave: pulse25, effect: time => 1 },
+	{ wave: pulse50, effect: time => 1 },
+	{ wave: pulse75, effect: time => 1 },
 	{ wave: sine, effect: time => saw(2)(time) + pulse(0.1)(time) },
 	{ wave: sine, effect: time => saw(2)(time) + pulse(0.2)(time) + square(1)(time) },
 	{ wave: sine, effect: time => saw(2)(time) + pulse(0.2)(time) + square(5)(time) },
