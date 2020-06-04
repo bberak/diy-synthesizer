@@ -8,11 +8,11 @@ const remap = (n, start1, stop1, start2, stop2) => {
   return (n - start1) / (stop1 - start1) * (stop2 - start2) + start2;
 }
 
-const pulse25 = (freq) => pulse(freq, 0.25); 
+const pulse25 = (freq) => square(freq, 0.25); 
 
-const pulse50 = (freq) => pulse(freq, 0.5); 
+const pulse50 = (freq) => square(freq, 0.5); 
 
-const pulse75 = (freq) => pulse(freq, 0.75); 
+const pulse75 = (freq) => square(freq, 0.75); 
 
 const envelope = () => {
 	let keyDown = false;
