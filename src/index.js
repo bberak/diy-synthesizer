@@ -4,10 +4,10 @@ const knob = require("./rotary-encoder");
 const { exec } = require('child_process');
 
 exec("sudo amixer set PCM 100%");
-exec(`say "on"`);
+exec(`say "turning on"`);
 
 let lfoMode = false;
-let cutOffMode = false;
+let filterMode = false;
 let volumeMode = false;
 let buttonCount = 0;
 
@@ -21,7 +21,7 @@ const shutdownListener = (cb) => () => {
 	buttonCount++;
 
 	if (buttonCount >= 3) {
-		exec(`say "off"`);
+		exec(`say "turning off"`);
 		process.exit();
 		//exec("sudo shutdown -h now");
 	}
@@ -43,17 +43,17 @@ const middleKnob = knob({
 	buttonPin: 8,
 	channelAPin: 4,
 	channelBPin: 2,
-	onButtonDown: shutdownListener(() => cutOffMode = !cutOffMode),
+	onButtonDown: shutdownListener(() => { filterMode = !filterMode; if (filterMode) exec(`say "filter"`); else exec(`say "octave"`); }),
 	onButtonUp: () => buttonCount--,
-	onClockwiseTurn: () => cutOffMode ? synth.increaseCutoff() : synth.increaseOctave(),
-	onCounterClockwiseTurn: () => cutOffMode ? synth.decreaseCutoff() : synth.decreaseOctave(),
+	onClockwiseTurn: () => filterMode ? synth.increaseCutoff() : synth.increaseOctave(),
+	onCounterClockwiseTurn: () => filterMode ? synth.decreaseCutoff() : synth.decreaseOctave(),
 });
 
 const rightKnob = knob({
 	buttonPin: 23,
 	channelAPin: 24,
 	channelBPin: 27,
-	onButtonDown: shutdownListener(() => volumeMode = !volumeMode),
+	onButtonDown: shutdownListener(() => { volumeMode = !volumeMode; if (volumeMode) exec(`say "volume"`); else exec(`say "ADSR"`); }),
 	onButtonUp: () => buttonCount--,
 	onClockwiseTurn: () => volumeMode ? synth.increaseVolume() : synth.nextAdsr(),
 	onCounterClockwiseTurn: () => volumeMode ? synth.decreaseVolume() : synth.previousAdsr(),
