@@ -72,7 +72,7 @@ let cap = limit(-0.99, 0.99);
 let keys = [false, false, false, false, false, false, false]
 let volumeEnvelopes = [envelope(), envelope(), envelope(), envelope(), envelope(), envelope(), envelope()]
 let wavePresets = [
-	freq => time =>  pulse75( remap(sine(lfoFrequency)(time), -1, 1, freq * 0.5, freq)  ))(time),
+	freq => time =>  pulse75( remap(sine(lfoFrequency)(time), -1, 1, freq * 0.5, freq) )(time),
 	sine,
 	saw,
 	sawInverse,
