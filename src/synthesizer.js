@@ -72,6 +72,7 @@ let cap = limit(-0.99, 0.99);
 let keys = [false, false, false, false, false, false, false]
 let volumeEnvelopes = [envelope(), envelope(), envelope(), envelope(), envelope(), envelope(), envelope()]
 let wavePresets = [
+	pulse75,
 	sine,
 	saw,
 	sawInverse,
