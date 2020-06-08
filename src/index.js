@@ -4,6 +4,7 @@ const knob = require("./rotary-encoder");
 const { exec } = require('child_process');
 
 exec("sudo amixer set PCM 100%");
+exec(`say "welcome"`);
 
 let lfoMode = false;
 let cutOffMode = false;

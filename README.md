@@ -6,6 +6,7 @@ A simple NodeJS synthesizer for Raspberry PI
 
 - Make sure audio output is set to the audio jack, not HDMI (unless your screen has speakers)
 - Install ALSA header files: `sudo apt-get install libasound2-dev`
+- Speech to text engine: `sudo apt-get install gnustep-gui-runtime`
 
 ## Getting Started
 
