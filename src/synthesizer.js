@@ -195,7 +195,7 @@ const nextAdsr = () => {
 
 const previousAdsr = () => {
 	console.log("previousAdsr");
-	
+
 	adsr = adsrPresets[adsrPresets.indexOf(adsr) - 1] || adsrPresets[adsrPresets.length - 1];
 };
 
@@ -256,13 +256,14 @@ const gUp = () => {
 }
 
 module.exports = {
-	nextEffect,
-	previousEffect,
-	randomEffect,
+	nextWave,
+	previousWave,
+	increaseLFO,
+	decreaseLFO,
 	increaseOctave,
 	decreaseOctave,
-	increaseMix,
-	decreaseMix,
+	increaseCutoff,
+	decreaseCutoff,
 	increaseVolume,
 	decreaseVolume,
 	nextAdsr,
