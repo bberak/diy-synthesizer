@@ -64,7 +64,7 @@ const envelope = () => {
 	}
 }
 
-let lfoFrequency = 2;
+let lfoFrequency = 1;
 let cutOffFrequency = 440 * 2 * 2 * 2 * 2;
 let octave = 4;
 let volume = 0.15
@@ -72,6 +72,7 @@ let cap = limit(-0.99, 0.99);
 let keys = [false, false, false, false, false, false, false]
 let volumeEnvelopes = [envelope(), envelope(), envelope(), envelope(), envelope(), envelope(), envelope()]
 let wavePresets = [
+	freq => time =>  pulse75(log("freq")( Math.abs(freq * sine(lfoFrequency)(time)) ))(time),
 	sine,
 	saw,
 	sawInverse,
@@ -166,13 +167,13 @@ const decreaseCutoff = () => {
 const increaseLFO = () => {
 	console.log("increaseLFO");
 
-	lfoFrequency += 1;
+	lfoFrequency += 0.1;
 };
 
 const decreaseLFO = () => {
 	console.log("decreaseLFO");
 
-	lfoFrequency -= 1;
+	lfoFrequency -= 0.1;
 };
 
 const increaseVolume = () => {
