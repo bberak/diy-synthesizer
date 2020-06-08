@@ -107,7 +107,7 @@ let wavePresets = [
 	freq => time => triangle75(freq)(time) + triangle75(freq * 2)(time) * 0.3 + triangle75(freq * 3)(time) * 0.17 + triangle75(freq * 4)(time) * 0.11 + triangle75(freq * 5)(time) * 0.9,
 	freq => time => square(freq)(time) + square(freq * 2)(time) * 0.3 + square(freq * 3)(time) * 0.17 + square(freq * 4)(time) * 0.11 + square(freq * 5)(time) * 0.9,
 	freq => time => pulse25(freq)(time) + pulse25(freq * 2)(time) * 0.3 + pulse25(freq * 3)(time) * 0.17 + pulse25(freq * 4)(time) * 0.11 + pulse25(freq * 5)(time) * 0.9,
-	freq => time => pulse75(freq)(time) + pulse75(freq * 2)(time) * 0.3 + pulse75(freq * 3)(time) * 0.17 + pulse75(freq * 4)(time) * 0.11 + pulse75(freq * 5)(time) * 0.9
+	freq => time => pulse75(freq)(time) + pulse75(freq * 2)(time) * 0.3 + pulse75(freq * 3)(time) * 0.17 + pulse75(freq * 4)(time) * 0.11 + pulse75(freq * 5)(time) * 0.9,
 
 	freq => time => saw(freq)(time) + triangle(freq)(time) + square(freq)(time),
 	freq => time => saw(freq)(time) + triangle(freq)(time) + pulse25(freq)(time),
