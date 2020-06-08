@@ -72,7 +72,7 @@ let cap = limit(-0.99, 0.99);
 let keys = [false, false, false, false, false, false, false]
 let volumeEnvelopes = [envelope(), envelope(), envelope(), envelope(), envelope(), envelope(), envelope()]
 let wavePresets = [
-	freq => time =>  pulse75(log("freq")( Math.abs(freq * sine(lfoFrequency)(time)) ))(time),
+	freq => time =>  pulse75(log("freq")(  Math.abs(freq * sine(lfoFrequency)(time))  ))(time),
 	sine,
 	saw,
 	sawInverse,
@@ -107,15 +107,23 @@ let adsrPresets = [
 let adsr = adsrPresets[0];
 
 synthesizer((time) => {
- 	const base = (
-		a(octave, wave)(time) * volumeEnvelopes[0](keys[0], time, adsr) +
-		b(octave, wave)(time) * volumeEnvelopes[1](keys[1], time, adsr) +
-		c(octave, wave)(time) * volumeEnvelopes[2](keys[2], time, adsr) +
-		d(octave, wave)(time) * volumeEnvelopes[3](keys[3], time, adsr) +
-		e(octave, wave)(time) * volumeEnvelopes[4](keys[4], time, adsr) +
-		f(octave, wave)(time) * volumeEnvelopes[5](keys[5], time, adsr) +
-		g(octave, wave)(time) * volumeEnvelopes[6](keys[6], time, adsr)
-	);
+	let tempA = volumeEnvelopes[0](keys[0], time, adsr);
+	let tempB = volumeEnvelopes[1](keys[1], time, adsr);
+	let tempC = volumeEnvelopes[2](keys[2], time, adsr);
+	let tempD = volumeEnvelopes[3](keys[3], time, adsr);
+	let tempE = volumeEnvelopes[4](keys[4], time, adsr);
+	let tempF = volumeEnvelopes[5](keys[5], time, adsr);
+	let tempG = volumeEnvelopes[6](keys[6], time, adsr);
+
+	tempA = tempA ? tempA * a(octave, wave)(time) : tempA;
+	tempB = tempB ? tempB * b(octave, wave)(time) : tempB;
+	tempC = tempC ? tempC * c(octave, wave)(time) : tempC;
+	tempD = tempD ? tempD * d(octave, wave)(time) : tempD;
+	tempE = tempE ? tempE * e(octave, wave)(time) : tempE;
+	tempF = tempF ? tempF * f(octave, wave)(time) : tempF;
+	tempG = tempG ? tempG * g(octave, wave)(time) : tempG;
+
+ 	const base = (tempA + tempB + tempC + tempD + tempE + tempF + tempG)
 
 	return cap(base) * volume;
 }).play({
