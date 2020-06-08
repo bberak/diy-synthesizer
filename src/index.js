@@ -4,7 +4,7 @@ const knob = require("./rotary-encoder");
 const { exec } = require('child_process');
 
 exec("sudo amixer set PCM 100%");
-exec(`say "welcome"`);
+exec(`say "on"`);
 
 let lfoMode = false;
 let cutOffMode = false;
@@ -21,6 +21,7 @@ const shutdownListener = (cb) => () => {
 	buttonCount++;
 
 	if (buttonCount >= 3)
+		exec(`say "off"`);
 		process.exit();
 		//exec("sudo shutdown -h now");
 	else if (cb)
@@ -31,7 +32,7 @@ const leftKnob = knob({
 	buttonPin: 12,
 	channelAPin: 11,
 	channelBPin: 10,
-	onButtonDown: shutdownListener(() => lfoMode = !lfoMode),
+	onButtonDown: shutdownListener(() => { lfoMode = !lfoMode; if (lfoMode) exec(`say "LFO"`) else exec(`say "waveform"`) }),
 	onButtonUp: () => buttonCount--,
 	onClockwiseTurn: () => lfoMode ? synth.increaseLFO() : synth.nextWave(),
 	onCounterClockwiseTurn: () => lfoMode ? synth.decreaseLFO() : synth.previousWave(),
