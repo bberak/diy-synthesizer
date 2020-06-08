@@ -33,7 +33,7 @@ const leftKnob = knob({
 	buttonPin: 12,
 	channelAPin: 11,
 	channelBPin: 10,
-	onButtonDown: shutdownListener(() => { lfoMode = !lfoMode; if (lfoMode) exec(`say "LFO"`) else exec(`say "waveform"`) }),
+	onButtonDown: shutdownListener(() => { lfoMode = !lfoMode; if (lfoMode) exec(`say "LFO"`); else exec(`say "waveform"`); }),
 	onButtonUp: () => buttonCount--,
 	onClockwiseTurn: () => lfoMode ? synth.increaseLFO() : synth.nextWave(),
 	onCounterClockwiseTurn: () => lfoMode ? synth.decreaseLFO() : synth.previousWave(),
