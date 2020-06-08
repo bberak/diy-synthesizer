@@ -64,6 +64,8 @@ const envelope = () => {
 	}
 }
 
+let lfoFrequency = 2;
+let cutOffFrequency = 440 * 2 * 2 * 2 * 2;
 let octave = 4;
 let volume = 0.15
 let cap = limit(-0.99, 0.99);
@@ -126,54 +128,74 @@ synthesizer((time) => {
 });
 
 const nextWave = () => {
+	console.log("nextWave");
+
 	wave = wavePresets[wavePresets.indexOf(wave) + 1] || wavePresets[0];
 };
 
 const previousWave = () => {
+	console.log("previousWave");
+
 	wave = wavePresets[wavePresets.indexOf(wave) - 1] || wavePresets[wavePresets.length - 1];
 };
 
-const randomWave = () => {
-	console.log("random wave not implemented");
-};
-
 const increaseOctave = () => {
+	console.log("increaseOctave");
+
 	octave += 0.2;
 };
 
 const decreaseOctave = () => {
+	console.log("decreaseOctave");
+
 	octave -= 0.2;
 };
 
-// const increaseCutoff = () => {
-// 	mix += 0.02;
-// };
+const increaseCutoff = () => {
+	console.log("increaseCutoff");
 
-// const decreaseCutoff = () => {
-// 	mix += 0.02;
-// };
+	cutOffFrequency += 200;
+};
 
-// const increaseLFO = () => {
-// 	mix += 0.02;
-// };
+const decreaseCutoff = () => {
+	console.log("decreaseCutoff");
 
-// const decreaseLFO = () => {
-// 	mix += 0.02;
-// };
+	cutOffFrequency -= 200;
+};
+
+const increaseLFO = () => {
+	console.log("increaseLFO");
+
+	lfoFrequency += 1;
+};
+
+const decreaseLFO = () => {
+	console.log("decreaseLFO");
+
+	lfoFrequency -= 1;
+};
 
 const increaseVolume = () => {
+	console.log("increaseVolume");
+
 	volume = limit(0, 1)(volume + 0.05);
 };
 
 const decreaseVolume = () => {
+	console.log("decreaseVolume");
+
 	volume = limit(0, 1)(volume - 0.05);
 };
 
 const nextAdsr = () => {
+	console.log("nextAdsr");
+
 	adsr = adsrPresets[adsrPresets.indexOf(adsr) + 1] || adsrPresets[0];
 };
 
 const previousAdsr = () => {
+	console.log("previousAdsr");
+	
 	adsr = adsrPresets[adsrPresets.indexOf(adsr) - 1] || adsrPresets[adsrPresets.length - 1];
 };
 

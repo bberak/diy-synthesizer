@@ -5,6 +5,8 @@ const { exec } = require('child_process');
 
 exec("sudo amixer set PCM 100%");
 
+let lfoMode = false;
+let cutOffMode = false;
 let volumeMode = false;
 let buttonCount = 0;
 
@@ -28,20 +30,20 @@ const leftKnob = knob({
 	buttonPin: 12,
 	channelAPin: 11,
 	channelBPin: 10,
-	onButtonDown: shutdownListener(synth.randomWave),
+	onButtonDown: shutdownListener(() => lfoMode = !lfoMode),
 	onButtonUp: () => buttonCount--,
-	onClockwiseTurn: synth.nextWave,
-	onCounterClockwiseTurn: synth.previousWave,
+	onClockwiseTurn: () => lfoMode ? synth.increaseLFO() : synth.nextWave(),
+	onCounterClockwiseTurn: () => lfoMode ? synth.decreaseLFO() : synth.previousWave(),
 });
 
 const middleKnob = knob({
 	buttonPin: 8,
 	channelAPin: 4,
 	channelBPin: 2,
-	onButtonDown: shutdownListener(),
+	onButtonDown: shutdownListener(() => cutOffMode = !cutOffMode),
 	onButtonUp: () => buttonCount--,
-	onClockwiseTurn: synth.increaseOctave,
-	onCounterClockwiseTurn: synth.decreaseOctave,
+	onClockwiseTurn: () => cutOffMode ? synth.increaseCutoff() : synth.increaseOctave(),
+	onCounterClockwiseTurn: () => cutOffMode ? synth.decreaseCutoff() : synth.decreaseOctave(),
 });
 
 const rightKnob = knob({
