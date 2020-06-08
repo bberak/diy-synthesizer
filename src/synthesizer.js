@@ -1,6 +1,6 @@
-const { synthesizer, loop, compose, map, scale, sum, split, limit } = require("node-sfx/core");
+const { synthesizer limit } = require("node-sfx/core");
 const { a, b, c, d, e, f, g, saw, pulse, triangle, square, perlin, sine } = require("node-sfx/waves");
-const { lowPass, movingAverage } = require("node-sfx/filters");
+const { lowPass } = require("node-sfx/filters");
 const { log } = require("node-sfx/utils");
 const sampleRate = 16000;
 
@@ -69,6 +69,7 @@ let cutOffFrequency = 440 * 2 * 2 * 2 * 2;
 let octave = 4;
 let volume = 0.15
 let cap = limit(-0.99, 0.99);
+let filter = lowPass("lp", sampleRate);
 let keys = [false, false, false, false, false, false, false]
 let volumeEnvelopes = [envelope(), envelope(), envelope(), envelope(), envelope(), envelope(), envelope()]
 let wavePresets = [
@@ -125,7 +126,7 @@ synthesizer((time) => {
 
  	const base = (tempA + tempB + tempC + tempD + tempE + tempF + tempG)
 
-	return cap(base) * volume;
+	return cap(filter(cutOffFrequency)(base)) * volume;
 }).play({
 	sampleRate,
 	channels: 2,
