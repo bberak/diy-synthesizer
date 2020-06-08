@@ -1,4 +1,4 @@
-const { synthesizer limit } = require("node-sfx/core");
+const { synthesizer, limit } = require("node-sfx/core");
 const { a, b, c, d, e, f, g, saw, pulse, triangle, square, perlin, sine } = require("node-sfx/waves");
 const { lowPass } = require("node-sfx/filters");
 const { log } = require("node-sfx/utils");
