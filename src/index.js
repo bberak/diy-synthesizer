@@ -1,42 +1,28 @@
 const synth = require("./synthesizer");
 const button = require("./pup-button");
 const knob = require("./rotary-encoder");
-const stateMachine = require("./state-machine");
+const { stateMachine, agg } = require("./state-machine");
 const { exec } = require('child_process');
 
 exec("sudo amixer set PCM 100%");
 exec(`say "turning on"`);
 
-let buttonCount = 0;
-
-const leftKnobStates = stateMachine(["waveform", "lfo"], next => exec(`say "${next}"`));
-const middleKnobStates = stateMachine(["octave", "filter"], next => exec(`say "${next}"`));
-const rightKnobStates = stateMachine("volume", "adsr", next => exec(`say "${next}"`));
-
-const shutdownListener = (cb) => () => {
-	if (buttonCount < 0)
-		buttonCount = 0;
-
-	if (buttonCount > 3)
-		buttonCount = 3;
-
-	buttonCount++;
-
-	if (buttonCount >= 3) {
+const leftKnobStates = stateMachine(["waveform", "off", "lfo", "off"], state => state != "off" && exec(`say "${state}"`));
+const middleKnobStates = stateMachine(["octave", "off", "filter", "off"], state => state != "off" && exec(`say "${state}"`));
+const rightKnobStates = stateMachine(["volume", "off", "adsr", "off"], state => state != "off" && exec(`say "${state}"`));
+const aggStates = aggregate([leftKnobStates, middleKnobStates, rightKnobStates], [s1, s2, s3] => {
+	if (s1 == "off" && s2 == "off" && s3 == "off") {
 		exec(`say "turning off"`);
 		process.exit();
-		//exec("sudo shutdown -h now");
 	}
-	else if (cb)
-		cb();
-};
+})
 
 const leftKnob = knob({
 	buttonPin: 12,
 	channelAPin: 11,
 	channelBPin: 10,
-	onButtonDown: shutdownListener(leftKnobStates.next),
-	onButtonUp: () => buttonCount--,
+	onButtonDown: leftKnobStates.next,
+	onButtonUp: leftKnobStates.next,
 	onClockwiseTurn: () => leftKnobStates.current() == "lfo" ? synth.increaseLFO() : synth.nextWave(),
 	onCounterClockwiseTurn: () => leftKnobStates.current() == "lfo" ? synth.decreaseLFO() : synth.previousWave(),
 });
@@ -45,8 +31,8 @@ const middleKnob = knob({
 	buttonPin: 8,
 	channelAPin: 4,
 	channelBPin: 2,
-	onButtonDown: shutdownListener(middleKnobStates.next),
-	onButtonUp: () => buttonCount--,
+	onButtonDown: middleKnobStates.next,
+	onButtonUp: middleKnobStates.next,
 	onClockwiseTurn: () => middleKnobStates.current() == "filter" ? synth.increaseCutoff() : synth.increaseOctave(),
 	onCounterClockwiseTurn: () => middleKnobStates.current() == "filter" ? synth.decreaseCutoff() : synth.decreaseOctave(),
 });
@@ -55,8 +41,8 @@ const rightKnob = knob({
 	buttonPin: 23,
 	channelAPin: 24,
 	channelBPin: 27,
-	onButtonDown: shutdownListener(rightKnobStates.next),
-	onButtonUp: () => buttonCount--,
+	onButtonDown: rightKnobStates.next,
+	onButtonUp: rightKnobStates.next,
 	onClockwiseTurn: () => rightKnobStates.current() == "volume" ? synth.increaseVolume() : synth.nextAdsr(),
 	onCounterClockwiseTurn: () => rightKnobStates.current() == "volume" ? synth.decreaseVolume() : synth.previousAdsr(),
 });

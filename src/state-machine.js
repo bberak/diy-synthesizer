@@ -1,5 +1,4 @@
-
-module.exports = (states = [], onChange) => {
+const stateMachine = (states = [], onChange) => {
 	const states = _.flatten(args);
 
 	let index = 0;
@@ -9,23 +8,13 @@ module.exports = (states = [], onChange) => {
 	const next = () => {
 		index++;
 
-		const state = current();
-
-		if (onChange)
-			onChange(state);
-
-		return state;
+		if (onChange) onChange(current());
 	};
 
 	const previous = () => {
 		index--;
 
-		const state = current();
-
-		if (onChange)
-			onChange(state);
-
-		return state;
+		if (onChange) onChange(current());
 	};
 
 	return {
@@ -33,4 +22,29 @@ module.exports = (states = [], onChange) => {
 		next,
 		previous,
 	};
+};
+
+const aggregate = (stateMachines = [], onChange) => {
+	stateMachines.forEach((sm) => {
+		if (onChange) {
+			let next = sm.next;
+			let previous = sm.previous;
+
+			sm.next = () => {
+				next();
+				onChange(stateMachines.map((x) => x.current()));
+			};
+
+			sm.previous = () => {
+				previous();
+				onChange(stateMachines.map((x) => x.current()));
+			};
+		}
+	});
+};
+
+module.exports = {
+	stateMachine,
+	aggregate,
+	agg: aggregate,
 };
