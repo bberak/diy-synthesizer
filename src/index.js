@@ -16,7 +16,7 @@ const middleKnobStates = stateMachine(
 	(state) => state != "off" && exec(`say ${state}`)
 );
 const rightKnobStates = stateMachine(
-	["volume", "off", "adsr", "off"],
+	["adsr", "off", "volume", "off"],
 	(state) => state != "off" && exec(`say ${state}`)
 );
 const aggregateStates = aggregate(

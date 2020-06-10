@@ -241,13 +241,13 @@ const decreaseCutoff = () => {
 const increaseResonance = () => {
 	console.log("increaseResonance");
 
-	resonance += 0.05;
+	resonance = limit(0, Infinity)(resonance + 0.1);
 };
 
 const decreaseResonance = () => {
 	console.log("decreaseResonance");
 
-	resonance -= 0.05;
+	resonance = limit(0, Infinity)(resonance - 0.1);
 };
 
 const increaseLFO = () => {
