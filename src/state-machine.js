@@ -1,6 +1,4 @@
 const stateMachine = (states = [], onChange) => {
-	const states = _.flatten(args);
-
 	let index = 0;
 
 	const current = () => states[Math.abs(index) % states.length];
