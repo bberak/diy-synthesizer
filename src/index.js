@@ -5,25 +5,25 @@ const { stateMachine, agg } = require("./state-machine");
 const { exec } = require("child_process");
 
 exec(`sudo amixer set PCM 100%`);
-exec(`say "turning on"`);
+exec(`say turning on`);
 
 const leftKnobStates = stateMachine(
 	["waveform", "off", "lfo", "off"],
-	(state) => state != "off" && exec(`say "${state}"`)
+	(state) => state != "off" && exec(`say ${state}`)
 );
 const middleKnobStates = stateMachine(
 	["octave", "off", "filter cutoff", "off", "filter resonance", "off"],
-	(state) => state != "off" && exec(`say "${state}"`)
+	(state) => state != "off" && exec(`say ${state}`)
 );
 const rightKnobStates = stateMachine(
 	["volume", "off", "adsr", "off"],
-	(state) => state != "off" && exec(`say "${state}"`)
+	(state) => state != "off" && exec(`say ${state}`)
 );
 const aggregateStates = aggregate(
 	[leftKnobStates, middleKnobStates, rightKnobStates],
 	([s1, s2, s3]) => {
 		if (s1 == "off" && s2 == "off" && s3 == "off") {
-			exec(`say "turning off"`);
+			exec(`say turning off`);
 			process.exit();
 		}
 	}
