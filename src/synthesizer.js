@@ -205,85 +205,85 @@ synthesizer((time) => {
 const nextWave = () => {
 	wave = wavePresets[wavePresets.indexOf(wave) + 1] || wavePresets[0];
 
-	console.log("nextWave", wavePresets.indexOf(wave));
+	console.log("wave", wavePresets.indexOf(wave));
 };
 
 const previousWave = () => {
 	wave = wavePresets[wavePresets.indexOf(wave) - 1] || wavePresets[wavePresets.length - 1];
 
-	console.log("previousWave", wavePresets.indexOf(wave));
+	console.log("wave", wavePresets.indexOf(wave));
 };
 
 const increaseOctave = () => {
 	octave += 0.2;
 
-	console.log("increaseOctave", octave);
+	console.log("octave", octave);
 };
 
 const decreaseOctave = () => {
 	octave -= 0.2;
 
-	console.log("decreaseOctave", octave);
+	console.log("octave", octave);
 };
 
 const increaseCutoff = () => {
 	cutOffFrequency += 200;
 
-	console.log("increaseCutoff", cutOffFrequency);
+	console.log("cutOffFrequency", cutOffFrequency);
 };
 
 const decreaseCutoff = () => {
 	cutOffFrequency -= 200;
 
-	console.log("decreaseCutoff", cutOffFrequency);
+	console.log("cutOffFrequency", cutOffFrequency);
 };
 
 const increaseResonance = () => {
 	resonance = limit(0, Infinity)(resonance + 0.1);
 
-	console.log("increaseResonance", resonance);
+	console.log("resonance", resonance);
 };
 
 const decreaseResonance = () => {
 	resonance = limit(0, Infinity)(resonance - 0.1);
 
-	console.log("decreaseResonance", resonance);
+	console.log("resonance", resonance);
 };
 
 const increaseLFO = () => {
 	lfoFrequency += 0.1;
 
-	console.log("increaseLFO", lfoFrequency);
+	console.log("lfoFrequency", lfoFrequency);
 };
 
 const decreaseLFO = () => {
 	lfoFrequency -= 0.1;
 
-	console.log("decreaseLFO", lfoFrequency);
+	console.log("lfoFrequency", lfoFrequency);
 };
 
 const increaseVolume = () => {
 	volume = limit(0, 1)(volume + 0.05);
 
-	console.log("increaseVolume", volume);
+	console.log("volume", volume);
 };
 
 const decreaseVolume = () => {
 	volume = limit(0, 1)(volume - 0.05);
 
-	console.log("decreaseVolume", volume);
+	console.log("volume", volume);
 };
 
 const nextAdsr = () => {
 	adsr = adsrPresets[adsrPresets.indexOf(adsr) + 1] || adsrPresets[0];
 
-	console.log("nextAdsr", adsrPresets.indexOf(adsr));
+	console.log("adsr", adsrPresets.indexOf(adsr));
 };
 
 const previousAdsr = () => {
 	adsr = adsrPresets[adsrPresets.indexOf(adsr) - 1] || adsrPresets[adsrPresets.length - 1];
 
-	console.log("previousAdsr", adsrPresets.indexOf(adsr));
+	console.log("adsr", adsrPresets.indexOf(adsr));
 };
 
 const aDown = () => {
