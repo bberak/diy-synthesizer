@@ -1,7 +1,7 @@
 const synth = require("./synthesizer");
 const button = require("./pup-button");
 const knob = require("./rotary-encoder");
-const { stateMachine, agg } = require("./state-machine");
+const { stateMachine, aggregate } = require("./state-machine");
 const { exec } = require("child_process");
 
 exec(`sudo amixer set PCM 100%`);
