@@ -66,6 +66,7 @@ const envelope = () => {
 
 let lfoFrequency = 1;
 let cutOffFrequency = 440 * 2 * 2 * 2 * 2;
+let resonance = 0.7;
 let octave = 4;
 let volume = 0.15
 let cap = limit(-0.99, 0.99);
@@ -190,7 +191,7 @@ synthesizer((time) => {
 
  	const base = (tempA + tempB + tempC + tempD + tempE + tempF + tempG)
 
-	return cap(filter(cutOffFrequency)(base)) * volume;
+	return cap(filter(cutOffFrequency, resonance)(base)) * volume;
 }).play({
 	sampleRate,
 	channels: 2,
@@ -235,6 +236,18 @@ const decreaseCutoff = () => {
 	console.log("decreaseCutoff");
 
 	cutOffFrequency -= 200;
+};
+
+const increaseResonance = () => {
+	console.log("increaseResonance");
+
+	resonance += 0.01;
+};
+
+const decreaseResonance = () => {
+	console.log("decreaseResonance");
+
+	resonance -= 0.01;
 };
 
 const increaseLFO = () => {
