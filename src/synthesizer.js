@@ -351,6 +351,8 @@ module.exports = {
 	decreaseOctave,
 	increaseCutoff,
 	decreaseCutoff,
+	increaseResonance,
+	decreaseResonance
 	increaseVolume,
 	decreaseVolume,
 	nextAdsr,
