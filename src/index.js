@@ -24,10 +24,13 @@ const aggregateStates = aggregate(
 	([s1, s2, s3]) => {
 		if (s1 == "off" && s2 == "off" && s3 == "off") {
 			exec(`say turning off`);
-			if (process.env.NODE_ENV == "dev")
-				process.exit();
-			else 
-				exec(`sudo shutdown -h now`);
+			console.log(process.env);
+			process.exit();
+			
+			// if (process.env.NODE_ENV == "dev")
+			// 	process.exit();
+			// else 
+			// 	exec(`sudo shutdown -h now`);
 		}
 	}
 );
