@@ -183,12 +183,12 @@ let adsrPresets = [
 	{ attackDuration: 0.1, decayDuration: 0.1, releaseDuration: 0.1, peak: 0.05, sustain: 0.025 },
 	{ attackDuration: 0.1, decayDuration: 0.1, releaseDuration: 0.1, peak: 0.05, sustain: 0.025 },
 	{ attackDuration: 0.1, decayDuration: 0.1, releaseDuration: 0.5, peak: 0.6, sustain: 0.4 },
-	{ attackDuration: 0.1, decayDuration: 0.1, releaseDuration: 0.5, peak: 0.6, sustain: 0.4 }
+	{ attackDuration: 0.1, decayDuration: 0.1, releaseDuration: 0.5, peak: 0.6, sustain: 0.4 },
 	{ attackDuration: 0.1, decayDuration: 0.1, releaseDuration: 0.1, peak: 0.6, sustain: 0.4 },
 	{ attackDuration: 0.1, decayDuration: 0.1, releaseDuration: 0.1, peak: 0.6, sustain: 0.4 },
 	{ attackDuration: 0, decayDuration: 0.1, releaseDuration: 0.5, peak: 0.6, sustain: 0.4 },
 	{ attackDuration: 0, decayDuration: 0.1, releaseDuration: 0.1, peak: 0.6, sustain: 0.4 },
-	{ attackDuration: 0, decayDuration: 0.1, releaseDuration: 0.05, peak: 0.6, sustain: 0.4 }
+	{ attackDuration: 0, decayDuration: 0.1, releaseDuration: 0.05, peak: 0.6, sustain: 0.4 },
 	{ attackDuration: 0, decayDuration: 0.7, releaseDuration: 0.5, peak: 0.6, sustain: 0.3 },
 	{ attackDuration: 0, decayDuration: 0.7, releaseDuration: 0.1, peak: 0.6, sustain: 0.3 },
 	{ attackDuration: 0, decayDuration: 0.7, releaseDuration: 0.05, peak: 0.6, sustain: 0.3 }
