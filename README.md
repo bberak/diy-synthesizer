@@ -2,13 +2,6 @@
 
 A simple NodeJS synthesizer for Raspberry PI
 
-<p align="center">
-	<img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0965.JPG" height="250" />
-    <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0982.JPG" height="250" />
-    <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0984.JPG" height="250" />
-    <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0993.JPG" height="250" />
-</p>
-
 ## Raspberry PI Prerequisities
 
 - Make sure audio output is set to the audio jack, not HDMI (unless your screen has speakers)
@@ -51,6 +44,13 @@ Finally, reboot to see it in action and test that it works.
 - [node-sfx](https://github.com/bberak/node-sfx)
 - [audio-generator](https://github.com/audiojs/audio-generator)
 - [audio-speaker](https://github.com/audiojs/audio-speaker)
+
+<p align="center">
+	<img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0965.JPG" height="250" />
+    <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0982.JPG" height="250" />
+    <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0984.JPG" height="250" />
+    <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0993.JPG" height="250" />
+</p>
 
 ## License
 
