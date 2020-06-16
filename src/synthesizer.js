@@ -1,7 +1,6 @@
 const { synthesizer, limit } = require("node-sfx/core");
-const { a, b, c, d, e, f, g, saw, pulse, triangle, square, perlin, sine } = require("node-sfx/waves");
+const { a, b, c, d, e, f, g, saw, triangle, square, sine } = require("node-sfx/waves");
 const { lowPass } = require("node-sfx/filters");
-const { log } = require("node-sfx/utils");
 const sampleRate = 16000;
 
 const remap = (n, start1, stop1, start2, stop2) => {
@@ -83,6 +82,7 @@ let wavePresets = [
 	square,
 	pulse25,
 	pulse75,
+	
 	freq => time => sine(freq)(time) + saw(freq)(time),
 	freq => time => sine(freq)(time) + triangle(freq)(time),
 	freq => time => sine(freq)(time) + triangle25(freq)(time),
@@ -97,6 +97,7 @@ let wavePresets = [
 	freq => time => sine(freq)(time) * square(freq)(time),
 	freq => time => sine(freq)(time) * pulse25(freq)(time),
 	freq => time => sine(freq)(time) * pulse75(freq)(time),
+	
 	freq => time => sine(freq)(time) + sine(freq * 2)(time) * 0.3 + sine(freq * 3)(time) * 0.17 + sine(freq * 4)(time) * 0.11 + sine(freq * 5)(time) * 0.9,
 	freq => time => saw(freq)(time) + saw(freq * 2)(time) * 0.3 + saw(freq * 3)(time) * 0.17 + saw(freq * 4)(time) * 0.11 + saw(freq * 5)(time) * 0.9,
 	freq => time => sawInverse(freq)(time) + sawInverse(freq * 2)(time) * 0.3 + sawInverse(freq * 3)(time) * 0.17 + sawInverse(freq * 4)(time) * 0.11 + sawInverse(freq * 5)(time) * 0.9,
@@ -106,9 +107,11 @@ let wavePresets = [
 	freq => time => square(freq)(time) + square(freq * 2)(time) * 0.3 + square(freq * 3)(time) * 0.17 + square(freq * 4)(time) * 0.11 + square(freq * 5)(time) * 0.9,
 	freq => time => pulse25(freq)(time) + pulse25(freq * 2)(time) * 0.3 + pulse25(freq * 3)(time) * 0.17 + pulse25(freq * 4)(time) * 0.11 + pulse25(freq * 5)(time) * 0.9,
 	freq => time => pulse75(freq)(time) + pulse75(freq * 2)(time) * 0.3 + pulse75(freq * 3)(time) * 0.17 + pulse75(freq * 4)(time) * 0.11 + pulse75(freq * 5)(time) * 0.9,
+	
 	freq => time => saw(freq)(time) + triangle(freq)(time) + square(freq)(time),
 	freq => time => saw(freq)(time) + triangle(freq)(time) + pulse25(freq)(time),
 	freq => time => saw(freq)(time) + triangle(freq)(time) + pulse75(freq)(time),
+
 	freq => time => saw(freq)(time) + triangle(freq)(time) + square(freq)(time) + saw(freq + 0.5)(time) + triangle(freq + 0.5)(time) + square(freq + 0.5)(time),
 	freq => time => saw(freq)(time) + triangle(freq)(time) + pulse25(freq)(time) + saw(freq + 0.5)(time) + triangle(freq + 0.5)(time) + pulse25(freq + 0.5)(time),
 	freq => time => saw(freq)(time) + triangle(freq)(time) + pulse75(freq)(time) + saw(freq + 0.5)(time) + triangle(freq + 0.5)(time) + pulse75(freq + 0.5)(time),
@@ -118,6 +121,7 @@ let wavePresets = [
 	freq => time => saw(freq)(time) + triangle(freq)(time) + square(freq)(time) + saw(freq + 2)(time) + triangle(freq + 2)(time) + square(freq + 2)(time),
 	freq => time => saw(freq)(time) + triangle(freq)(time) + pulse25(freq)(time) + saw(freq + 2)(time) + triangle(freq + 2)(time) + pulse25(freq + 2)(time),
 	freq => time => saw(freq)(time) + triangle(freq)(time) + pulse75(freq)(time) + saw(freq + 2)(time) + triangle(freq + 2)(time) + pulse75(freq + 2)(time),
+	
 	freq => time => pulse25(remap(triangle(lfoFrequency)(time), -1, 1, freq * 0.25, freq))(time),
 	freq => time => pulse75(remap(triangle(lfoFrequency)(time), -1, 1, freq * 0.25, freq))(time),
 	freq => time => pulse25(remap(saw(lfoFrequency)(time), -1, 1, freq * 0.25, freq))(time),
@@ -263,13 +267,13 @@ const decreaseLFO = () => {
 };
 
 const increaseVolume = () => {
-	volume = limit(0, 1)(volume + 0.05);
+	volume = limit(0, 1)(volume + 0.025);
 
 	console.log("volume", volume);
 };
 
 const decreaseVolume = () => {
-	volume = limit(0, 1)(volume - 0.05);
+	volume = limit(0, 1)(volume - 0.025);
 
 	console.log("volume", volume);
 };
