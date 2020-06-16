@@ -3,11 +3,9 @@
 A simple NodeJS synthesizer for Raspberry PI
 
 <p align="center">
-  <a href="https://github.com/bberak/react-native-game-engine-handbook">
-    <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0965.JPG" height="450" />
-    <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0982.JPG" height="450" />
-    <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0995.JPG" height="450" />
-   </a>
+	<img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0965.JPG" height="350" />
+    <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0982.JPG" height="350" />
+    <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0984.JPG" height="350" />
 </p>
 
 ## Raspberry PI Prerequisities
