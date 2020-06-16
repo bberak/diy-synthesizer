@@ -1,11 +1,8 @@
 const { synthesizer, limit } = require("node-sfx/core");
-const { a, b, c, d, e, f, g, saw, triangle, square, sine } = require("node-sfx/waves");
+const { a, b, c, d, e, f, g, saw, triangle, square, pulse, sine } = require("node-sfx/waves");
 const { lowPass } = require("node-sfx/filters");
+const { remap } = require("node-sfx/utils");
 const sampleRate = 16000;
-
-const remap = (n, start1, stop1, start2, stop2) => {
-  return (n - start1) / (stop1 - start1) * (stop2 - start2) + start2;
-}
 
 const sawInverse = (freq) => saw(freq, true);
 
@@ -13,9 +10,9 @@ const triangle25 = (freq) => triangle(freq, 0.25);
 
 const triangle75 = (freq) => triangle(freq, 0.75);
 
-const pulse25 = (freq) => square(freq, 0.25); 
+const pulse25 = (freq) => pulse(freq, 0.25); 
 
-const pulse75 = (freq) => square(freq, 0.75); 
+const pulse75 = (freq) => pulse(freq, 0.75); 
 
 const envelope = () => {
 	let keyDown = false;
