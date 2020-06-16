@@ -2,6 +2,14 @@
 
 A simple NodeJS synthesizer for Raspberry PI
 
+<p align="center">
+  <a href="https://github.com/bberak/react-native-game-engine-handbook">
+    <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0965.JPG" height="450" />
+    <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0982.JPG" height="450" />
+    <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0984.JPG" height="450" />
+   </a>
+</p>
+
 ## Raspberry PI Prerequisities
 
 - Make sure audio output is set to the audio jack, not HDMI (unless your screen has speakers)
