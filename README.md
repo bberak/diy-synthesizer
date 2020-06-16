@@ -6,7 +6,7 @@ A simple NodeJS synthesizer for Raspberry PI
   <a href="https://github.com/bberak/react-native-game-engine-handbook">
     <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0965.JPG" height="450" />
     <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0982.JPG" height="450" />
-    <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0984.JPG" height="450" />
+    <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0955.JPG" height="450" />
    </a>
 </p>
 
