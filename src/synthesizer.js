@@ -145,9 +145,16 @@ let wavePresets = [
 
 	freq => time => triangle25(remap(pulse25(lfoFrequency)(time), -1, 1, freq * 0.25, freq))(time),
 	freq => time => triangle75(remap(pulse25(lfoFrequency)(time), -1, 1, freq * 0.25, freq))(time),
+	freq => time => square(remap(pulse25(lfoFrequency)(time), -1, 1, freq * 0.25, freq))(time),
 
-	freq => time => square(remap(pulse75(lfoFrequency)(time), -1, 1, freq * 0.25, freq))(time),
-	freq => time => square(remap(pulse25(lfoFrequency)(time), -1, 1, freq * 0.25, freq))(time)
+
+
+
+
+
+	freq => time => square(remap(pulse25(lfoFrequency)(time), -1, 1, freq * 0.25, freq * 0.5))(time),
+	freq => time => square(remap(pulse25(lfoFrequency)(time), -1, 1, 0, freq * 0.5))(time),
+	freq => time => square(remap(pulse25(lfoFrequency)(time), -1, 1, 0, freq))(time)
 ];
 let wave = wavePresets[0];
 let adsrPresets = [
