@@ -2,7 +2,7 @@ const synth = require("./synthesizer");
 const button = require("./pup-button");
 const knob = require("./rotary-encoder");
 const { stateMachine, aggregate } = require("./state-machine");
-const { exec } = require("child_process");
+const { exec, execSync } = require("child_process");
 
 exec(`sudo amixer set PCM 100%`);
 exec(`say turning on`);
@@ -23,10 +23,13 @@ const aggregateStates = aggregate(
 	[leftKnobStates, middleKnobStates, rightKnobStates],
 	([s1, s2, s3]) => {
 		if (s1 == "off" && s2 == "off" && s3 == "off") {
-			exec("say turning off", () => {
-				if (process.env.NODE_ENV == "dev") process.exit();
-				else exec(`sudo shutdown -h now`);
-			});
+			exec("say turning off");
+			execSync("sleep 2");
+			
+			if (process.env.NODE_ENV == "dev")
+				process.exit();
+			else 
+				exec(`sudo shutdown -h now`);
 		}
 	}
 );
