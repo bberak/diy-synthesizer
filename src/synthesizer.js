@@ -70,6 +70,7 @@ let filter = lowPass("lp", sampleRate);
 let keys = [false, false, false, false, false, false, false]
 let volumeEnvelopes = [envelope(), envelope(), envelope(), envelope(), envelope(), envelope(), envelope()]
 let wavePresets = [
+	//-- Core waves
 	sine,
 	saw,
 	sawInverse,
@@ -79,7 +80,7 @@ let wavePresets = [
 	square,
 	pulse25,
 	pulse75,
-	
+	//-- Simple additive
 	freq => time => sine(freq)(time) + saw(freq)(time),
 	freq => time => sine(freq)(time) + triangle(freq)(time),
 	freq => time => sine(freq)(time) + triangle25(freq)(time),
@@ -94,7 +95,10 @@ let wavePresets = [
 	freq => time => sine(freq)(time) * square(freq)(time),
 	freq => time => sine(freq)(time) * pulse25(freq)(time),
 	freq => time => sine(freq)(time) * pulse75(freq)(time),
-	
+	freq => time => saw(freq)(time) + triangle(freq)(time) + square(freq)(time),
+	freq => time => saw(freq)(time) + triangle(freq)(time) + pulse25(freq)(time),
+	freq => time => saw(freq)(time) + triangle(freq)(time) + pulse75(freq)(time)
+	//-- Core with harmonics
 	freq => time => sine(freq)(time) + sine(freq * 2)(time) * 0.3 + sine(freq * 3)(time) * 0.17 + sine(freq * 4)(time) * 0.11 + sine(freq * 5)(time) * 0.9,
 	freq => time => saw(freq)(time) + saw(freq * 2)(time) * 0.3 + saw(freq * 3)(time) * 0.17 + saw(freq * 4)(time) * 0.11 + saw(freq * 5)(time) * 0.9,
 	freq => time => sawInverse(freq)(time) + sawInverse(freq * 2)(time) * 0.3 + sawInverse(freq * 3)(time) * 0.17 + sawInverse(freq * 4)(time) * 0.11 + sawInverse(freq * 5)(time) * 0.9,
@@ -104,11 +108,7 @@ let wavePresets = [
 	freq => time => square(freq)(time) + square(freq * 2)(time) * 0.3 + square(freq * 3)(time) * 0.17 + square(freq * 4)(time) * 0.11 + square(freq * 5)(time) * 0.9,
 	freq => time => pulse25(freq)(time) + pulse25(freq * 2)(time) * 0.3 + pulse25(freq * 3)(time) * 0.17 + pulse25(freq * 4)(time) * 0.11 + pulse25(freq * 5)(time) * 0.9,
 	freq => time => pulse75(freq)(time) + pulse75(freq * 2)(time) * 0.3 + pulse75(freq * 3)(time) * 0.17 + pulse75(freq * 4)(time) * 0.11 + pulse75(freq * 5)(time) * 0.9,
-	
-	freq => time => saw(freq)(time) + triangle(freq)(time) + square(freq)(time),
-	freq => time => saw(freq)(time) + triangle(freq)(time) + pulse25(freq)(time),
-	freq => time => saw(freq)(time) + triangle(freq)(time) + pulse75(freq)(time),
-
+	//-- Complex additive
 	freq => time => saw(freq)(time) + triangle(freq)(time) + square(freq)(time) + saw(freq + 0.5)(time) + triangle(freq + 0.5)(time) + square(freq + 0.5)(time),
 	freq => time => saw(freq)(time) + triangle(freq)(time) + pulse25(freq)(time) + saw(freq + 0.5)(time) + triangle(freq + 0.5)(time) + pulse25(freq + 0.5)(time),
 	freq => time => saw(freq)(time) + triangle(freq)(time) + pulse75(freq)(time) + saw(freq + 0.5)(time) + triangle(freq + 0.5)(time) + pulse75(freq + 0.5)(time),
@@ -118,7 +118,7 @@ let wavePresets = [
 	freq => time => saw(freq)(time) + triangle(freq)(time) + square(freq)(time) + saw(freq + 2)(time) + triangle(freq + 2)(time) + square(freq + 2)(time),
 	freq => time => saw(freq)(time) + triangle(freq)(time) + pulse25(freq)(time) + saw(freq + 2)(time) + triangle(freq + 2)(time) + pulse25(freq + 2)(time),
 	freq => time => saw(freq)(time) + triangle(freq)(time) + pulse75(freq)(time) + saw(freq + 2)(time) + triangle(freq + 2)(time) + pulse75(freq + 2)(time),
-	
+	//-- LFO driven
 	freq => time => triangle25(remap(square(lfoFrequency)(time), -1, 1, freq * 0.25, freq))(time),
 	freq => time => triangle25(remap(square(lfoFrequency)(time), -1, 1, freq * 0.25, freq))(time),
 	freq => time => triangle25(remap(square(lfoFrequency)(time), -1, 1, freq * 0.5, freq))(time),
