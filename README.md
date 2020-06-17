@@ -38,13 +38,20 @@ Enable and start the servie:
 
 ```
 systemctl enable diy-synthesizer # follow the prompts
-systemctl start diy-synthesizer  # follow the prompts
+systemctl start diy-synthesizer # follow the prompts
 systemctl status diy-synthesizer.service # make sure service is active (running)
 ```
 
 Finally, reboot to see it in action and test that it works.
 
 > [This article will help you debug in case of problems](https://community.chakralinux.org/t/how-to-investigate-systemd-errors/7024)
+
+To stop and disable the service: 
+
+```
+systemctl stop diy-synthesizer # follow the prompts
+systemctl disable diy-synthesizer # follow the prompts
+```
 
 ## Built with open source tools 💕
 
