@@ -46,7 +46,7 @@ Finally, reboot to see it in action and test that it works.
 
 > [This article will help you debug in case of problems](https://community.chakralinux.org/t/how-to-investigate-systemd-errors/7024)
 
-To stop and disable the service: 
+To disable and stop the service: 
 
 ```
 systemctl stop diy-synthesizer # follow the prompts
