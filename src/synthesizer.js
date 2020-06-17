@@ -97,7 +97,7 @@ let wavePresets = [
 	freq => time => sine(freq)(time) * pulse75(freq)(time),
 	freq => time => saw(freq)(time) + triangle(freq)(time) + square(freq)(time),
 	freq => time => saw(freq)(time) + triangle(freq)(time) + pulse25(freq)(time),
-	freq => time => saw(freq)(time) + triangle(freq)(time) + pulse75(freq)(time)
+	freq => time => saw(freq)(time) + triangle(freq)(time) + pulse75(freq)(time),
 	//-- Core with harmonics
 	freq => time => sine(freq)(time) + sine(freq * 2)(time) * 0.3 + sine(freq * 3)(time) * 0.17 + sine(freq * 4)(time) * 0.11 + sine(freq * 5)(time) * 0.9,
 	freq => time => saw(freq)(time) + saw(freq * 2)(time) * 0.3 + saw(freq * 3)(time) * 0.17 + saw(freq * 4)(time) * 0.11 + saw(freq * 5)(time) * 0.9,
