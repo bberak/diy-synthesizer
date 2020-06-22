@@ -52,16 +52,23 @@ const createRotaryEncoder = ({
 
 		channelB.glitchFilter(channelBGlitchFilter);
 
-		const _onTurn = () => {
+		const _onClockwise = () => {
 			const a = channelA.digitalRead();
 			const b = channelB.digitalRead();
 
-			if (a === 1 && b === 1) onClockwiseTurn();
-			else if (a === 1 && b === 0) onCounterClockwiseTurn();
+			if (a === 1 && b === 0) onClockwiseTurn();
 		};
 
-		channelA.on("alert", _onTurn);
-		channelB.on("alert", _onTurn);
+		channelA.on("alert", _onClockwise);
+
+		const _onCounterClockwise = () => {
+			const a = channelA.digitalRead();
+			const b = channelB.digitalRead();
+
+			if (a === 0 && b === 1) onCounterClockwiseTurn();
+		};
+
+		channelB.on("alert", _onCounterClockwise);
 	}
 };
 
