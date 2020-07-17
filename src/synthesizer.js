@@ -238,13 +238,13 @@ const decreaseOctave = () => {
 };
 
 const increaseCutoff = () => {
-	cutOffFrequency = limit(0, 8000)(cutOffFrequency + 200);
+	cutOffFrequency = limit(200, 7800)(cutOffFrequency + 200);
 
 	console.log("cutOffFrequency", cutOffFrequency);
 };
 
 const decreaseCutoff = () => {
-	cutOffFrequency = limit(0, 8000)(cutOffFrequency - 200);
+	cutOffFrequency = limit(200, 7800)(cutOffFrequency - 200);
 
 	console.log("cutOffFrequency", cutOffFrequency);
 };
