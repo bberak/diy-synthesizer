@@ -71,15 +71,15 @@ let keys = [false, false, false, false, false, false, false]
 let volumeEnvelopes = [envelope(), envelope(), envelope(), envelope(), envelope(), envelope(), envelope()]
 let wavePresets = [
 	//-- Core waves
+	square,
+	pulse25,
+	pulse75,
 	sine,
 	saw,
 	sawInverse,
 	triangle,
 	triangle25,
 	triangle75,
-	square,
-	pulse25,
-	pulse75,
 	//-- Simple additive
 	freq => time => sine(freq)(time) + saw(freq)(time),
 	freq => time => sine(freq)(time) + triangle(freq)(time),
