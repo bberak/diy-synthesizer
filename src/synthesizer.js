@@ -61,7 +61,7 @@ const envelope = () => {
 }
 
 let lfoFrequency = 1;
-let cutOffFrequency = 440 * 2 * 2 * 2 * 2;
+let cutOffFrequency = 440 * 2 * 2 * 2;
 let resonance = 0.7;
 let octave = 4;
 let volume = 0.15
