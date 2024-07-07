@@ -3,8 +3,11 @@
 A simple NodeJS synthesizer for Raspberry PI
 
 <p align="center">
-	<img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0965.JPG" height="250" />
+    <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0965.JPG" height="250" />
     <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0982.JPG" height="250" />
+</p>
+
+<p align="center">
     <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0984.JPG" height="250" />
     <img src="https://raw.githubusercontent.com/bberak/diy-synthesizer/master/assets/IMG_0993.JPG" height="250" />
 </p>
